@@ -1,155 +1,151 @@
-# Style Library
+# 스타일 라이브러리
 
-Read this when the user asks to save a finished deck style, a sample-slide style, or a user-supplied image/PDF/PPT/PPTX style into the reusable style library.
+완성된 덱 스타일, 승인 샘플 스타일, 사용자가 제공한 이미지/PDF/PPT/PPTX 스타일을 재사용 가능한 스타일 라이브러리에 저장해 달라는 요청이 있을 때 읽는다.
 
-The goal is to save a reusable visual system, not the current deck's private content.
+목표는 현재 덱의 비공개 콘텐츠가 아니라 재사용 가능한 시각 시스템을 저장하는 것이다.
 
-User custom styles are saved to `${CODEX_PPT_HOME:-~/.codex-ppt-skill}/references/`, outside the skill install directory, so they survive skill updates and reinstalls. Never write user custom styles into the skill's own `references/` directory; that directory is reserved for built-in styles shipped with the skill.
+사용자 지정 스타일은 스킬 설치 디렉터리 밖의 `${CODEX_PPT_HOME:-~/.codex-ppt-skill}/references/`에 저장한다. 따라서 스킬 업데이트나 재설치 후에도 유지된다. 사용자 스타일을 스킬 자체의 `references/`에 저장하지 않는다. 그 디렉터리는 스킬에 포함되어 배포되는 내장 스타일 전용이다.
 
-## When To Use
+## 사용 시점
 
-Use this workflow when the user says things like:
+다음과 같은 요청에서 사용한다.
 
-- Save this style.
-- Add this PPT style to the style library.
-- Let future decks use this style.
-- Turn this image/PDF/PPT/PPTX style into a built-in reference.
-- Save the style from the finished deck.
+- 이 스타일 저장해줘.
+- 이 PPT 스타일을 스타일 라이브러리에 추가해줘.
+- 다음 덱에서도 이 스타일을 쓰게 해줘.
+- 이 이미지/PDF/PPT/PPTX 스타일을 재사용 가능한 레퍼런스로 만들어줘.
+- 완성된 덱의 스타일을 저장해줘.
 
-If the user only wants to use a style once, extract a temporary style description for the current deck instead of writing a new style file.
+한 번만 사용할 스타일이라면 새 파일을 만들지 말고 현재 덱에 사용할 임시 스타일 설명만 추출한다.
 
-## Inspect The Visual Source
+## 시각 원본 검사
 
-Use the actual visible pages as the source of truth.
+실제로 보이는 페이지를 기준으로 삼는다.
 
-- For a finished codex-ppt deck, inspect the final `origin_image/slide_XX.png` files or exported slide page images.
-- For a sample slide, inspect the approved sample image.
-- For user-provided image references, inspect the image itself.
-- For PDF/PPT/PPTX references, first render or export representative pages/slides into real page images, then inspect those images. Do not infer the style from file structure, text, XML, metadata, or object hierarchy alone.
+- 완성된 codex-ppt 덱: 최종 `origin_image/slide_XX.png` 또는 내보낸 슬라이드 이미지 검사
+- 샘플 슬라이드: 승인된 샘플 이미지 검사
+- 사용자 제공 이미지: 해당 이미지를 직접 검사
+- PDF/PPT/PPTX: 대표 페이지/슬라이드를 실제 이미지로 렌더링/내보낸 뒤 검사. 파일 구조, 텍스트, XML, 메타데이터, 객체 계층만으로 스타일을 추정하지 않는다.
 
-Inspect enough pages to capture the style system. Prefer at least one cover or opener, one ordinary content slide, one diagram/process/data slide when available, and one closing or summary slide. If the deck has obvious section-specific variants, record those variants inside the style file.
+가능하면 표지/도입, 일반 콘텐츠, 다이어그램·프로세스·데이터 페이지, 마무리/요약 페이지를 각각 하나 이상 확인한다. 섹션별 변형이 뚜렷하면 스타일 파일에 그 변형도 기록한다.
 
-## Extract The Style System
+## 스타일 시스템 추출
 
-Extract reusable visual rules:
+다음과 같은 재사용 가능한 시각 규칙을 추출한다.
 
-- `style_name`: short reusable name.
-- `best_for`: suitable scenarios and audiences.
-- `visual_direction`: one concise description of the style identity.
-- `canvas`: aspect ratio, background, composition, density, whitespace.
-- `color_palette`: primary, secondary, accent, neutral colors, plus usage rules.
-- `typography`: title, body, labels, hierarchy, alignment, text quality rules.
-- `layout_patterns`: recurring page types and composition patterns.
-- `layout_usage_rule`: how to vary layouts while keeping the same identity.
-- `layout_blueprints`: 2-4 reusable composition blueprints, described semantically rather than copied from one slide.
-- `visual_elements`: allowed and avoided icons, diagrams, cards, textures, decorations, photos, charts.
-- `image_treatment`: how photos, screenshots, charts, or illustrations are handled.
-- `rendering_constraints`: rules the image model should follow.
+- `style_name`: 짧고 재사용 가능한 이름
+- `best_for`: 적합한 상황과 청중
+- `visual_direction`: 스타일 정체성을 한 문장으로 설명
+- `canvas`: 화면비, 배경, 구성, 밀도, 여백
+- `color_palette`: 주색/보조색/강조색/중립색과 사용 규칙
+- `typography`: 제목, 본문, 라벨, 위계, 정렬, 텍스트 품질 규칙
+- `layout_patterns`: 반복 가능한 페이지 유형과 구성 패턴
+- `layout_usage_rule`: 정체성을 유지하면서 레이아웃을 변형하는 규칙
+- `layout_blueprints`: 특정 한 장을 복제하지 않은 의미 중심 구성 청사진 2~4개
+- `visual_elements`: 허용/금지 아이콘, 다이어그램, 카드, 질감, 장식, 사진, 차트
+- `image_treatment`: 사진, 스크린샷, 차트, 일러스트 처리 방식
+- `rendering_constraints`: 이미지 모델이 따라야 할 제약
 
-Do not save private or one-off content as style:
+다음과 같은 비공개/일회성 콘텐츠는 스타일로 저장하지 않는다.
 
-- Do not save the user's original article text, business data, personal information, customer names, private project names, paper results, exact quotes, or slide copy.
-- Do not save source images or screenshots as required dependencies of the style file.
-- Do not preserve identifiable logos or brand names unless the user explicitly asks for a reusable brand style.
-- Do not make the style depend on external files; the style file must be self-contained.
+- 원문, 사업 데이터, 개인정보, 고객명, 비공개 프로젝트명, 논문 결과, 정확한 인용문, 슬라이드 문구
+- 원본 이미지나 스크린샷을 스타일의 필수 외부 의존성으로 저장하지 않는다.
+- 사용자가 재사용 브랜드 스타일을 명시적으로 요청하지 않는 한 식별 가능한 로고나 브랜드명을 보존하지 않는다.
+- 스타일 파일은 외부 파일에 의존하지 않고 자체 완결적이어야 한다.
 
-## Name The Style
+## 스타일 이름
 
-Name the file:
+저장 경로:
 
 ```text
 ${CODEX_PPT_HOME:-~/.codex-ppt-skill}/references/{style_name}.md
 ```
 
-Create the directory first if it does not exist.
+디렉터리가 없으면 먼저 만든다.
 
-Naming rules:
+이름 규칙:
 
-- Prefer a short Chinese style name, usually 2-8 Chinese characters or a concise Chinese phrase.
-- Name the reusable visual style, not the project, client, paper, or event.
-- Avoid personal names, company names, customer names, paper titles, or temporary task names.
-- Avoid vague names like `我的风格1`, `好看风`, or `新风格`.
-- Good examples: `深色数据科技风`, `极简发布会风`, `柔和学术插画风`, `高密度咨询风`.
+- 짧은 한국어 스타일명을 권장한다.
+- 프로젝트, 고객, 논문, 행사 이름이 아니라 재사용할 시각 스타일 자체를 이름으로 삼는다.
+- 개인명, 회사명, 고객명, 논문 제목, 임시 작업명은 피한다.
+- `내스타일1`, `예쁜스타일`, `새스타일` 같은 모호한 이름은 피한다.
+- 좋은 예: `다크 데이터 테크`, `미니멀 키노트`, `소프트 학술 일러스트`, `고밀도 컨설팅`.
 
-If the target filename already exists in the user style directory, ask whether to overwrite, merge, or choose a new name. If the filename matches a built-in style in the skill's `references/`, tell the user the custom file will take priority over the built-in style with the same name, and confirm that is intended before saving.
+사용자 스타일 디렉터리에 같은 파일명이 있으면 덮어쓰기, 병합, 새 이름 중 무엇을 할지 확인한다. 같은 이름의 내장 스타일이 있다면 사용자 지정 파일이 우선 적용된다는 점을 알리고 저장 의도를 확인한다.
 
-## Write The Style File
+## 스타일 파일 작성
 
-Match the structure of the built-in files in the skill's `references/`:
+스킬 내장 `references/` 파일과 유사한 구조로 작성한다.
 
-    # {style_name}
+```markdown
+# {style_name}
 
-    **适用场景:**
-    - ...
-    - ...
+**적합한 상황:**
+- ...
+- ...
 
-    **GPT-Image-2 风格 Brief:**
-    ```json
+**이미지 생성 스타일 Brief:**
+```json
+{
+  "type": "16:9 full-slide PowerPoint image",
+  "style_name": "{style_name}",
+  "best_for": "...",
+  "visual_direction": "...",
+  "canvas": {
+    "aspect_ratio": "16:9",
+    "background": "...",
+    "composition": "...",
+    "density": "..."
+  },
+  "color_palette": {
+    "primary": "...",
+    "secondary": "...",
+    "accent": "...",
+    "neutral": "...",
+    "rule": "..."
+  },
+  "typography": {
+    "title": "...",
+    "body": "...",
+    "labels": "...",
+    "text_quality": "..."
+  },
+  "layout_patterns": ["...", "..."],
+  "layout_usage_rule": "...",
+  "layout_blueprints": [
     {
-      "type": "16:9 full-slide PowerPoint image",
-      "style_name": "{style_name}",
-      "best_for": "...",
-      "visual_direction": "...",
-      "canvas": {
-        "aspect_ratio": "16:9",
-        "background": "...",
-        "composition": "...",
-        "density": "..."
-      },
-      "color_palette": {
-        "primary": "...",
-        "secondary": "...",
-        "accent": "...",
-        "neutral": "...",
-        "rule": "..."
-      },
-      "typography": {
-        "title": "...",
-        "body": "...",
-        "labels": "...",
-        "text_quality": "..."
-      },
-      "layout_patterns": [
-        "...",
-        "..."
-      ],
-      "layout_usage_rule": "...",
-      "layout_blueprints": [
-        {
-          "name": "...",
-          "sections": [
-            {"position": "...", "count": 1, "labels": ["..."]}
-          ]
-        }
-      ],
-      "visual_elements": {
-        "allowed": "...",
-        "avoid": "..."
-      },
-      "image_treatment": {
-        "photos": "...",
-        "screenshots": "...",
-        "charts": "...",
-        "illustrations": "..."
-      },
-      "rendering_constraints": [
-        "...",
-        "..."
+      "name": "...",
+      "sections": [
+        {"position": "...", "count": 1, "labels": ["..."]}
       ]
     }
-    ```
+  ],
+  "visual_elements": {
+    "allowed": "...",
+    "avoid": "..."
+  },
+  "image_treatment": {
+    "photos": "...",
+    "screenshots": "...",
+    "charts": "...",
+    "illustrations": "..."
+  },
+  "rendering_constraints": ["...", "..."]
+}
+```
+```
 
-The JSON should be directly reusable as a slide generation style brief. Keep it descriptive enough for future agents, but avoid embedding task-specific content.
+JSON은 이후 슬라이드 생성 스타일 브리프로 바로 재사용할 수 있어야 한다. 충분히 구체적으로 쓰되 현재 작업에만 해당하는 콘텐츠는 넣지 않는다.
 
-## Discovery
+## 발견 방식
 
-No registration step is needed. Future style confirmation steps scan `${CODEX_PPT_HOME:-~/.codex-ppt-skill}/references/` and merge its files with the built-in style list, so the saved file is discoverable automatically. Do not edit `docs/outline-style-and-sample.md` or any other file inside the skill for a user custom style.
+별도 등록 단계는 없다. 이후 스타일 확인 단계에서 `${CODEX_PPT_HOME:-~/.codex-ppt-skill}/references/`를 스캔해 내장 스타일과 합치므로 자동으로 발견된다. 사용자 지정 스타일 때문에 `docs/outline-style-and-sample.md`나 스킬 내부 다른 파일을 수정하지 않는다.
 
-## Final Response
+## 최종 응답
 
-Report:
+다음을 보고한다.
 
-- The new style name.
-- The saved file path under `${CODEX_PPT_HOME:-~/.codex-ppt-skill}/references/`.
-- That the style is stored outside the skill install, so it survives skill updates and reinstalls.
-- A one-sentence note on how to request it later, for example: "以后可以说：用「深色数据科技风」生成这份 PPT。"
+- 새 스타일 이름
+- `${CODEX_PPT_HOME:-~/.codex-ppt-skill}/references/` 아래 저장 경로
+- 스킬 설치 밖에 저장되어 업데이트/재설치 후에도 유지된다는 점
+- 이후 요청 방법 한 문장 예시: `다음에는 "다크 데이터 테크" 스타일로 이 PPT를 만들어줘.`

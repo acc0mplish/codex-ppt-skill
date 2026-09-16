@@ -1,59 +1,59 @@
-# 风格与个人风格库
+# 스타일 및 개인 스타일 라이브러리
 
-Codex PPT 的视觉风格来自两个地方：随 skill 发布的**内置风格**，以及存放在你本机、更新 skill 也不会丢失的**个人风格库**。
+Codex PPT의 시각 스타일은 두 곳에서 가져옵니다. skill과 함께 배포되는 **내장 스타일**과, 로컬 컴퓨터에 저장되어 skill을 업데이트해도 사라지지 않는 **개인 스타일 라이브러리**입니다.
 
-## 内置风格
+## 내장 스타일
 
-skill 内置 12 种风格参考，不会写提示词也可以直接从这里开始。制作 PPT 时直接说风格名即可，例如：
+skill에는 12가지 참고 스타일이 내장되어 있어 프롬프트를 잘 작성하지 못해도 바로 시작할 수 있습니다. PPT를 만들 때 다음 예시처럼 스타일 이름을 직접 말하면 됩니다.
 
 ```text
-请使用 codex-ppt skill，把这份材料做成 10 页 PPT，使用内置的「手绘技术解释风」。
+codex-ppt skill을 사용해서 이 자료를 10페이지 PPT로 만들고, 내장된 「손그림 기술 설명 스타일」을 사용해 주세요.
 ```
 
-| 清爽专业风 | 创意杂志风 |
+| 깔끔한 전문 스타일 | 창의적 매거진 스타일 |
 | --- | --- |
-| ![清爽专业风](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/clean-professional.png) | ![创意杂志风](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/creative-magazine.png) |
-| 电子墨水杂志风 | 数据仪表盘风 |
-| ![电子墨水杂志风](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/e-ink-magazine.png) | ![数据仪表盘风](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/data-dashboard.png) |
-| 复古扁平插画风 | 手绘技术解释风 |
-| ![复古扁平插画风](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/retro-flat-illustration.png) | ![手绘技术解释风](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/handdrawn-technical.png) |
-| 手绘白板风 | 温暖手工风 |
-| ![手绘白板风](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/handdrawn-whiteboard.png) | ![温暖手工风](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/warm-handmade.png) |
-| 科研答辩风 | 麦肯锡风格 |
-| ![科研答辩风](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/scientific-defense.png) | ![麦肯锡风格](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/mckinsey-style.png) |
-| 党政红风格 | 教学课件风 |
-| ![党政红风格](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/party-government-red.png) | ![教学课件风](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/teaching-courseware.png) |
+| ![깔끔한 전문 스타일](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/clean-professional.png) | ![창의적 매거진 스타일](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/creative-magazine.png) |
+| 전자 잉크 매거진 스타일 | 데이터 대시보드 스타일 |
+| ![전자 잉크 매거진 스타일](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/e-ink-magazine.png) | ![데이터 대시보드 스타일](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/data-dashboard.png) |
+| 복고풍 플랫 일러스트 스타일 | 손그림 기술 설명 스타일 |
+| ![복고풍 플랫 일러스트 스타일](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/retro-flat-illustration.png) | ![손그림 기술 설명 스타일](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/handdrawn-technical.png) |
+| 손그림 화이트보드 스타일 | 따뜻한 핸드메이드 스타일 |
+| ![손그림 화이트보드 스타일](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/handdrawn-whiteboard.png) | ![따뜻한 핸드메이드 스타일](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/warm-handmade.png) |
+| 연구 발표 스타일 | McKinsey 스타일 |
+| ![연구 발표 스타일](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/scientific-defense.png) | ![McKinsey 스타일](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/mckinsey-style.png) |
+| 당·정 홍보용 레드 스타일 | 교육용 코스웨어 스타일 |
+| ![당·정 홍보용 레드 스타일](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/party-government-red.png) | ![교육용 코스웨어 스타일](https://raw.githubusercontent.com/ningzimu/codex-ppt-skill/main/assets/style-previews/teaching-courseware.png) |
 
-风格是一套视觉系统（配色、字体气质、版式密度、插画语言），不是固定模板；同一套风格下，每页版式会根据内容角色变化，不会每页长得一样。
+스타일은 색상, 글꼴의 분위기, 레이아웃 밀도와 일러스트 언어로 이루어진 하나의 시각 시스템이지, 고정된 템플릿이 아닙니다. 같은 스타일에서도 각 페이지의 레이아웃은 콘텐츠 역할에 따라 달라지므로 모든 페이지가 똑같아 보이지 않습니다.
 
-## 仿照参考材料的风格
+## 참고 자료의 스타일 재현
 
-如果内置风格不满足需求，可以提供自己喜欢的风格参考：一张截图、多张截图，或完整 PPT/PDF。建议先让 agent 分析参考材料的配色、版式、字体和视觉元素，再按这个风格生成新 PPT：
-
-```text
-请使用 codex-ppt skill 生成 PPT。视觉风格参考我上传的这份 PDF。请详细阅读我提供材料中的每一页图片，确保了解其风格，然后仿照其风格进行生成。
-```
-
-注意：默认只仿风格、不复用内容。除非你明确要求，参考材料里的文字和数据不会被搬进新 PPT。
-
-## 个人风格库
-
-如果生成的 PPT 风格你很满意，无论是调出来的自定义风格，还是从参考材料复刻的风格，都可以让 agent 保存下来，以后直接复用：
+내장 스타일로 요구 사항을 충족할 수 없다면 마음에 드는 스타일 참고 자료를 제공할 수 있습니다. 스크린샷 한 장이나 여러 장, 또는 전체 PPT/PDF도 가능합니다. 먼저 agent가 참고 자료의 색상, 레이아웃, 글꼴과 시각 요소를 분석한 뒤 해당 스타일로 새 PPT를 생성하도록 하는 것을 권장합니다.
 
 ```text
-这套 PPT 的视觉风格我很喜欢，请保存到个人风格库。
+codex-ppt skill을 사용해 PPT를 생성해 주세요. 시각 스타일은 제가 업로드한 PDF를 참고하세요. 제공한 자료의 각 페이지 이미지를 자세히 읽고 스타일을 충분히 이해한 뒤, 그 스타일을 재현해 생성해 주세요.
 ```
 
-保存机制的几个要点：
+주의: 기본적으로 스타일만 재현하고 내용은 재사용하지 않습니다. 명시적으로 요청하지 않는 한 참고 자료의 텍스트와 데이터는 새 PPT에 옮겨지지 않습니다.
 
-- **存放位置**：个人风格库位于 `~/.codex-ppt-skill/references/`（可通过 `CODEX_PPT_HOME` 环境变量改变位置），在 skill 安装目录**之外**。更新或重新安装 skill 时，个人风格不会被覆盖或丢失。
-- **自动发现**：保存后无需任何登记。之后制作 PPT 选择风格时，agent 会自动扫描个人风格库，把你的风格和内置风格一起列出来。
-- **同名优先**：如果个人风格和某个内置风格同名，以你的个人风格为准。你也可以利用这一点定制内置风格：保存一个同名的调整版即可覆盖默认效果。
-- **复用方式**：以后直接说风格名即可，例如「用『深色数据科技风』生成这份 PPT」。
+## 개인 스타일 라이브러리
 
-生成完成后，如果这套 deck 用的是自定义或调整过的风格，agent 也会在最终报告里主动提示你可以保存。使用未修改的内置风格时无需重复保存。
+생성된 PPT의 스타일이 마음에 든다면 조정한 사용자 지정 스타일이든 참고 자료에서 재현한 스타일이든 agent에게 저장하도록 요청해 나중에 바로 재사용할 수 있습니다.
 
-## 相关页面
+```text
+이 PPT의 시각 스타일이 마음에 듭니다. 개인 스타일 라이브러리에 저장해 주세요.
+```
 
-- [示例提示词](prompts.md)：指定内置风格、仿照参考风格、保存风格的完整提示词。
-- [常见问题](faq.md)：风格跑偏、页面不满意时的处理方式。
+저장 방식의 주요 특징은 다음과 같습니다.
+
+- **저장 위치**: 개인 스타일 라이브러리는 `~/.codex-ppt-skill/references/`에 있습니다(`CODEX_PPT_HOME` 환경 변수로 위치 변경 가능). skill 설치 디렉터리 **외부**에 있으므로 skill을 업데이트하거나 다시 설치해도 개인 스타일을 덮어쓰거나 잃지 않습니다.
+- **자동 검색**: 저장 후 별도로 등록할 필요가 없습니다. 다음에 PPT 스타일을 선택할 때 agent가 개인 스타일 라이브러리를 자동으로 검색해 내장 스타일과 함께 표시합니다.
+- **같은 이름 우선 적용**: 개인 스타일이 내장 스타일과 같은 이름이면 개인 스타일이 우선합니다. 이 기능을 이용해 내장 스타일을 사용자화할 수도 있습니다. 같은 이름으로 조정된 버전을 저장하면 기본 효과를 덮어씁니다.
+- **재사용 방법**: 이후에는 스타일 이름을 직접 말하면 됩니다. 예: “『다크 데이터 테크 스타일』로 이 PPT를 생성해 주세요.”
+
+생성이 끝난 뒤 이 deck이 사용자 지정 또는 조정된 스타일을 사용했다면 agent도 최종 보고에서 스타일을 저장할 수 있다고 안내합니다. 수정하지 않은 내장 스타일은 다시 저장할 필요가 없습니다.
+
+## 관련 문서
+
+- [예시 프롬프트](/ko/prompts.md): 내장 스타일 지정, 참고 스타일 재현, 스타일 저장을 위한 전체 프롬프트.
+- [자주 묻는 질문](/ko/faq.md): 스타일이 달라지거나 페이지가 마음에 들지 않을 때의 처리 방법.

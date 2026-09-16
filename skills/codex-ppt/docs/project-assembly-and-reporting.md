@@ -1,10 +1,10 @@
-# Project Assembly And Reporting
+# 프로젝트 조립 및 최종 보고
 
-Read this before initializing the project directory, writing speaker notes, assembling the PPT, or sending the final report.
+프로젝트 디렉터리를 초기화하거나 발표자 노트를 작성하거나 PPT를 조립하거나 최종 결과를 보고하기 전에 읽는다.
 
-## Project Directory
+## 프로젝트 디렉터리
 
-Use this output structure:
+다음 구조를 사용한다.
 
 ```text
 {base_dir}/{deck_name}/
@@ -23,129 +23,122 @@ Use this output structure:
 └── {deck_name}.pptx
 ```
 
-If the user did not specify a destination, use the current working directory or the directory that contains the source file.
+사용자가 대상 위치를 지정하지 않았다면 현재 작업 디렉터리 또는 원본 파일이 있는 디렉터리를 사용한다.
 
-You may initialize the directory structure with:
+디렉터리 구조는 다음 명령으로 초기화할 수 있다.
 
 ```bash
 ~/.codex-ppt-skill/.venv/bin/python {skill_root}/scripts/assemble_ppt.py {base_dir} {deck_name}.pptx --init
 ```
 
-## Quality Check And Repair
+## 품질 점검 및 수정
 
-Before assembling the PPT, inspect every slide image. Check:
+PPT 조립 전에 모든 슬라이드 이미지를 검사한다.
 
-- Text is readable and not garbled.
-- Slide content matches the outline.
-- Title and key points are not truncated.
-- Visual style is consistent across slides.
-- No page number appears unless the user requested one.
-- Important elements do not overlap.
+- 텍스트가 읽기 쉽고 깨지지 않았는지
+- 슬라이드 내용이 개요와 일치하는지
+- 제목과 핵심 포인트가 잘리지 않았는지
+- 슬라이드 전체에서 시각 스타일이 일관적인지
+- 사용자가 요청하지 않은 페이지 번호가 들어가지 않았는지
+- 중요한 요소가 겹치지 않았는지
 
-If a slide has severe text or layout issues, regenerate it with a more constrained prompt. If a slide is mostly correct but has a localized issue, use the selected backend's edit capability when available. In CLI/API fallback mode, use `scripts/image_gen.py edit --image {slide_path} --prompt ... --out {new_slide_path}` and replace the final slide only after validating the edited output.
+텍스트나 레이아웃 문제가 심하면 더 제한적인 프롬프트로 다시 생성한다. 대체로 맞지만 국소적인 문제가 있다면 선택한 백엔드의 편집 기능을 사용할 수 있을 때 그 기능을 사용한다. CLI/API 폴백 모드에서는 `scripts/image_gen.py edit --image {slide_path} --prompt ... --out {new_slide_path}`를 사용하고 편집 결과를 검증한 뒤에만 최종 슬라이드를 교체한다.
 
-## Speaker Notes
+## 발표자 노트
 
-Make sure `outline.md` reflects the final confirmed deck outline. Do not recreate it from scratch here.
+`speech.md`를 작성할 때 `outline.md`가 최종 확정 개요를 반영하는지 먼저 확인한다. 여기서 개요를 새로 만들지 않는다.
 
-Create `speech.md` as presenter notes that a speaker can use directly. Do not write a brief summary of visible slide text. Write in the presentation language; for Chinese decks, speaker notes should be in Chinese.
+`speech.md`는 발표자가 실제로 읽거나 따라갈 수 있는 발표 스크립트로 작성한다. 화면에 보이는 텍스트를 짧게 요약하는 수준으로 끝내지 않는다. 덱의 언어와 같은 언어로 작성한다.
 
-For each slide, write only the spoken talk track directly under the slide heading, without an extra label. It is the script the presenter can read or closely follow. It should connect the slide to the deck's main story, explain the point the audience should take away, and include a natural transition at the end when useful.
+각 슬라이드는 제목 바로 아래에 실제 말할 내용을 적고 별도의 `발표자 노트:` 같은 라벨은 붙이지 않는다. 덱의 전체 이야기와 해당 슬라이드를 연결하고, 청중이 기억해야 할 핵심을 설명하며, 필요하면 다음 슬라이드로 자연스럽게 이어지는 전환 문장을 넣는다.
 
-Before writing the slide notes, choose a delivery style based on the deck content, audience, and purpose. The delivery style is not a label added after writing; it should shape the actual talk track, including how direct the claim is, how much background is explained, which examples are used, how quickly the speaker moves, and how transitions are phrased.
+덱의 내용, 청중, 목적에 맞춰 전체 발표 스타일을 먼저 정한다. 예:
 
-Common delivery styles:
+- 기술 설명: 정의를 먼저 제시하고 예시와 시각 요소를 차근차근 설명한다.
+- 연구/논문 발표: 근거 중심으로 방법·결과·한계와 그림에서 배워야 할 점을 분명히 한다.
+- 제품/피치: 결과와 가치부터 제시하고 사용자 문제, 근거, 다음 행동에 집중한다.
+- 교육/워크숍: 단계별 진행과 점검 포인트, 짧은 참여 유도 질문을 포함한다.
+- 경영진 보고: 결론 우선, 짧고 명확하게 의사결정·위험·트레이드오프·권고 행동에 집중한다.
 
-- Technical explainer: patient, definition-first, example-driven, with careful visual walkthroughs.
-- Research or paper reading: evidence-led, method/result/limitation oriented, with clear claims about what the audience should learn from each figure.
-- Product or pitch deck: outcome-first, persuasive, focused on user pain, value, proof, and the next action.
-- Training or workshop: step-by-step, checkpoint-driven, with small prompts for audience reflection or practice.
-- Executive report: conclusion-first, concise, focused on decisions, risks, tradeoffs, and recommended actions.
+전체 덱에서는 하나의 전달 스타일을 유지하되 슬라이드 역할에 따라 속도와 톤을 조절한다.
 
-Keep one deck-level delivery style consistent, but adapt the tone by slide role. For example, an opening slide can be more framing-oriented, a dense diagram slide can slow down for explanation, and a closing slide can become more action-oriented.
+분량 가이드:
 
-Length guidance:
+- 제목, 목차, 섹션 구분 슬라이드: 짧은 1~2문단
+- 일반 콘텐츠 슬라이드: 보통 짧은 2~5문단
+- 개념/아키텍처/데이터/논문 설명이 빽빽한 슬라이드: 필요하면 더 길게 쓰되 청중이 흐름을 놓칠 정도면 내용을 나눈다.
 
-- Title, agenda, and section-divider slides can be 1-2 short paragraphs.
-- Normal content slides should usually be 2-5 short paragraphs, or roughly 150-400 Chinese characters for Chinese decks.
-- Dense concept, architecture, data, or paper-explanation slides may need more, but split long material if the audience would lose the thread.
+발표 스크립트 원칙:
 
-Use basic presentation craft in the talk track:
+- 세부 내용보다 핵심 주장을 먼저 말한다.
+- 시각 요소는 청중이 봐야 할 순서대로 설명한다.
+- 슬라이드 문구를 그대로 읽기보다 예시, 대비, 주의점, 의미를 보충한다.
+- 필요하면 다음 슬라이드로 자연스럽게 연결한다.
+- 이 덱을 실제 현장에서 설명하는 사람처럼 자연스럽게 쓴다.
+- 생성형 AI가 만들었다는 식의 표현은 넣지 않는다.
 
-- Lead with the claim before the details.
-- Explain visuals in the order the audience should look at them.
-- Add examples, contrast, caveats, and "so what" implications instead of rereading the slide.
-- Close with a natural bridge to the next slide when useful.
-
-Write the talk track from the presenter's point of view, facing the audience. Avoid generic AI-style phrasing, canned summaries, and phrases that sound detached from the actual talk. The script should sound like a person explaining this specific deck in the room:
-
-- Use natural first-person or speaker-facing phrasing when appropriate, such as "这里我想强调的是..." or "我们先看左边这个结构...".
-- Ground each paragraph in the current slide's content and the surrounding deck narrative.
-- Prefer concrete explanations, examples, and audience-oriented transitions over broad filler like "本页主要介绍了..." or "综上所述...".
-- Do not mention that the notes were generated, inferred, or prepared by an AI.
-
-Use headings that the assembly script can map back to slide numbers:
+조립 스크립트가 슬라이드 번호를 매핑할 수 있도록 다음 형식을 사용한다.
 
 ```markdown
-## Slide 1: {Title}
+## Slide 1: {제목}
 
-{Presenter talk track for slide 1. For Chinese decks, write this in Chinese. Include an optional transition sentence at the end when useful.}
+{슬라이드 1 발표 스크립트}
 
-## Slide 2: {Title}
+## Slide 2: {제목}
 
-{Presenter talk track for slide 2}
+{슬라이드 2 발표 스크립트}
 ```
 
-## Assembly
+## PPT 조립
 
-Before running `scripts/assemble_ppt.py` or the CLI/API fallback scripts, make sure the shared runtime exists. If `~/.codex-ppt-skill/.venv/bin/python` is missing, or if importing script dependencies fails, create or refresh the environment:
+`scripts/assemble_ppt.py` 또는 CLI/API 폴백 스크립트를 실행하기 전에 공유 런타임이 준비되었는지 확인한다. `~/.codex-ppt-skill/.venv/bin/python`이 없거나 스크립트 의존성 import가 실패하면 다음으로 환경을 생성/갱신한다.
 
 ```bash
 python3 {skill_root}/scripts/codex_ppt_runtime.py bootstrap
 ```
 
-This is an internal setup step for the skill. Do not ask the user to run these commands unless dependency installation fails and user approval or troubleshooting is required.
+이는 스킬 내부 준비 단계다. 의존성 설치 실패로 사용자의 승인이나 문제 해결이 필요한 경우가 아니라면 사용자에게 직접 실행을 요구하지 않는다.
 
-Run:
+조립 명령:
 
 ```bash
 ~/.codex-ppt-skill/.venv/bin/python {skill_root}/scripts/assemble_ppt.py {base_dir} {deck_name}.pptx --aspect-ratio 16:9
 ```
 
-Important:
+중요 사항:
 
-- `{base_dir}` is the parent directory of `{deck_name}/`.
-- `{deck_name}.pptx` must match the project folder name.
-- The script reads images from `{base_dir}/{deck_name}/origin_image/`.
-- The script only reads final images named like `slide_01.png`, `slide_02.png`, etc.; drafts and sample files are ignored.
-- Before running assembly, `slide_jobs.json` should show every generated slide as `recorded` and every approved sample slide as `accepted`. If any slide is `pending`, `dispatched`, or `blocked`, stop and report that state.
-- If `{base_dir}/{deck_name}/speech.md` exists and uses `Slide N` headings, the script writes those notes into the corresponding PPT speaker notes.
-- The script writes `{base_dir}/{deck_name}/{deck_name}.pptx`.
+- `{base_dir}`는 `{deck_name}/`의 상위 디렉터리다.
+- `{deck_name}.pptx` 이름은 프로젝트 폴더명과 일치해야 한다.
+- 스크립트는 `{base_dir}/{deck_name}/origin_image/`의 이미지를 읽는다.
+- `slide_01.png`, `slide_02.png` 같은 최종 파일만 읽고 초안/샘플 보조 파일은 무시한다.
+- 조립 전에 `slide_jobs.json`에서 생성 슬라이드는 모두 `recorded`, 승인 샘플은 `accepted` 상태여야 한다. 하나라도 `pending`, `dispatched`, `blocked`라면 중단하고 상태를 보고한다.
+- `{base_dir}/{deck_name}/speech.md`가 있고 `Slide N` 제목 형식을 쓰면 해당 내용을 PPT 발표자 노트에 기록한다.
+- 결과는 `{base_dir}/{deck_name}/{deck_name}.pptx`에 생성된다.
 
-`assemble_ppt.py` supports `16:9` and `4:3`. Use `16:9` unless the user requests otherwise. `image_gen.py` loads `~/.codex-ppt-skill/.env` automatically for `OPENAI_API_KEY`, `OPENAI_BASE_URL`, and `CODEX_PPT_IMAGE_MODEL`. Run `python3 {skill_root}/scripts/codex_ppt_runtime.py doctor --check-api` when troubleshooting API access.
+`assemble_ppt.py`는 `16:9`와 `4:3`을 지원한다. 사용자가 다른 비율을 요청하지 않으면 `16:9`를 사용한다. `image_gen.py`는 `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `CODEX_PPT_IMAGE_MODEL`을 위해 `~/.codex-ppt-skill/.env`를 자동으로 읽는다. API 접근 문제를 점검할 때는 `python3 {skill_root}/scripts/codex_ppt_runtime.py doctor --check-api`를 사용한다.
 
-## Final Report
+## 최종 보고
 
-Report:
+다음을 보고한다.
 
-- Project directory
-- PPT file path
-- Slide image directory
-- `outline.md` path
-- `speech.md` path
-- `slide_jobs.json` path
-- Number of slides
-- Confirm which image backend was used and that every non-sample slide result was recorded with `record_slide_result.py`.
-- Confirm that speaker notes from `speech.md` were written into the PPT, if applicable
-- Any slides that were regenerated, blocked, or still have known limitations
-- If the deck's style is custom or noticeably adapted (extracted from user references, tuned during sampling, or otherwise not an unmodified built-in style), end with a one-sentence tip that the style can be saved to the personal style library for future reuse, for example: "如果你喜欢这套风格，可以说「保存这个风格」，我会把它存入个人风格库（`~/.codex-ppt-skill/references/`），以后可以直接复用，更新 skill 也不会丢失。" If the user agrees, read `docs/style-library.md`. Skip this tip when the deck used an unmodified built-in style.
+- 프로젝트 디렉터리
+- PPT 파일 경로
+- 슬라이드 이미지 디렉터리
+- `outline.md` 경로
+- `speech.md` 경로
+- `slide_jobs.json` 경로
+- 슬라이드 수
+- 사용한 이미지 백엔드와 승인 샘플을 제외한 모든 슬라이드 결과가 `record_slide_result.py`로 기록되었는지 여부
+- 해당하는 경우 `speech.md`의 노트가 PPT에 기록되었는지 여부
+- 재생성된 슬라이드, 블로커, 알려진 제한 사항
+- 사용자 지정/수정 스타일을 사용했다면 마지막에 개인 스타일 라이브러리(`~/.codex-ppt-skill/references/`)에 저장해 재사용할 수 있다고 한 문장으로 안내한다. 사용자가 동의하면 `docs/style-library.md`를 읽는다. 수정하지 않은 내장 스타일을 그대로 썼다면 이 안내는 생략한다.
 
-## Prompting Principles
+## 프롬프트 원칙
 
-- Keep one global visual style fixed across the deck.
-- Vary slide composition by page role; style consistency does not mean repeating the same layout.
-- Use `layout_blueprints` as candidate patterns, not mandatory templates.
-- Generate one slide per image request.
-- Prefer concrete visual direction over generic words like "beautiful" or "professional".
-- For dense content, split across more slides instead of crowding one slide.
-- Prioritize clarity over decoration.
+- 덱 전체에서 하나의 전역 시각 스타일을 유지한다.
+- 페이지 역할에 따라 구성을 바꾼다. 스타일 일관성은 같은 레이아웃 반복을 뜻하지 않는다.
+- `layout_blueprints`는 후보 패턴이지 강제 템플릿이 아니다.
+- 이미지 요청 한 번에 슬라이드 한 장만 생성한다.
+- `예쁘게`, `전문적으로` 같은 추상어보다 구체적인 시각 지시를 사용한다.
+- 내용이 빽빽하면 한 장에 우겨 넣지 말고 슬라이드를 나눈다.
+- 장식보다 명확성을 우선한다.

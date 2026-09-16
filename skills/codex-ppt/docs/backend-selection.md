@@ -1,37 +1,37 @@
-# Backend Selection
+# 이미지 백엔드 선택
 
-Read this before confirming the image backend or generating the first sample slide.
+이미지 백엔드를 확정하거나 첫 샘플 슬라이드를 생성하기 전에 읽는다.
 
-This skill supports two image backends:
+이 스킬은 두 가지 이미지 백엔드를 지원한다.
 
-1. Built-in image tool, preferred when available. Example tool names: Codex `image_gen`; OpenClaw `image_generate`.
-2. Local API/CLI fallback, using `scripts/image_gen.py`.
+1. 내장 이미지 도구: 사용할 수 있으면 우선 선택한다. 예: Codex의 `image_gen`, OpenClaw의 `image_generate`.
+2. 로컬 API/CLI 폴백: `scripts/image_gen.py` 사용.
 
-## Decision Rules
+## 결정 규칙
 
-- Before recommending CLI/API fallback, actively check whether the built-in image generation tool is callable in the current environment. Do not infer availability only from the agent name or subscription context.
-- Prefer the built-in image tool when available. In Codex, this usually means the built-in `image_gen` tool. In OpenClaw, this may be `image_generate`. Resolution, quality, aspect ratio, or slide-edit requests alone do not require CLI/API fallback. Check which parameters the current tool actually exposes.
-- Do not identify the built-in tool as a specific GPT Image model unless the environment provides evidence. If exact model, size, or quality selection is required but the tool does not expose it, explain the limitation and select a compatible API/CLI fallback with the user. Successful image generation alone does not verify the actual model or requested parameters.
-- Use CLI/API fallback only when the built-in tool is unavailable, the built-in tool failed for a required capability, the user explicitly asks for API/CLI or a third-party image API/provider adapter, or the requested capability is unavailable in the built-in tool.
-- Do not recommend CLI/API fallback merely because it provides direct `--out` file paths, easier local file management, local config reuse, batch generation convenience, or simpler automation.
-- Before generating the first image, tell the user which tool availability you checked, which backend you plan to use, why fallback is or is not needed, and ask for confirmation. Do not treat being in a specific agent environment as proof that the built-in image tool is available.
-- CLI/API fallback loads `~/.codex-ppt-skill/.env` automatically. Run the CLI normally; do not manually parse `.env` or ask for configuration before an error.
-- Ask for `OPENAI_API_KEY` configuration only after you have intentionally selected CLI/API fallback and that fallback reports missing config, after authentication/base URL/model errors, or when the user explicitly wants to change API settings. Do not mention missing `OPENAI_API_KEY` while the Codex built-in image tool is available. Configure provided values with `scripts/codex_ppt_runtime.py config --api-key`.
+- CLI/API 폴백을 권하기 전에 현재 환경에서 내장 이미지 생성 도구를 실제로 호출할 수 있는지 확인한다. 에이전트 이름이나 구독 환경만 보고 사용 가능 여부를 추정하지 않는다.
+- 내장 이미지 도구를 사용할 수 있으면 우선한다. 해상도, 품질, 화면비, 슬라이드 편집 요청만으로 CLI/API 폴백을 선택하지 말고 현재 도구가 실제로 노출하는 매개변수를 확인한다.
+- 환경에서 근거를 제공하지 않는 한 내장 도구를 특정 GPT Image 모델이라고 단정하지 않는다. 정확한 모델, 크기, 품질 선택이 필요하지만 도구가 이를 노출하지 않는다면 제한을 설명하고 사용자와 함께 호환 가능한 API/CLI 폴백을 선택한다.
+- CLI/API 폴백은 내장 도구가 없거나, 필요한 기능에서 내장 도구가 실패했거나, 사용자가 API/CLI 또는 서드파티 이미지 공급자 어댑터를 명시적으로 요청했거나, 요청 기능이 내장 도구에 없을 때만 사용한다.
+- 직접적인 `--out` 경로, 쉬운 로컬 파일 관리, 로컬 설정 재사용, 배치 생성 편의, 단순한 자동화만을 이유로 폴백을 권하지 않는다.
+- 첫 이미지를 만들기 전에 어떤 도구의 가용성을 확인했는지, 어떤 백엔드를 사용할지, 폴백이 필요한지 여부와 이유를 사용자에게 알리고 확인을 받는다.
+- CLI/API 폴백은 `~/.codex-ppt-skill/.env`를 자동으로 읽는다. CLI를 정상적으로 실행하고, 오류가 나기 전부터 `.env`를 수동 파싱하거나 설정값을 요구하지 않는다.
+- `OPENAI_API_KEY` 설정은 CLI/API 폴백을 의도적으로 선택했고 실제로 설정 누락 오류가 발생했거나 인증/기본 URL/모델 오류가 발생했거나 사용자가 API 설정 변경을 요청한 경우에만 요구한다. 제공된 값은 `scripts/codex_ppt_runtime.py config --api-key`로 설정한다.
 
-If CLI/API fallback is selected, read `cli-api-fallback.md` before generating images. For API key, base URL, model, and `.env` configuration, read `image-model-configuration.md` only after the fallback CLI reports missing or invalid configuration, or when the user explicitly wants to change those settings.
+CLI/API 폴백을 선택했다면 이미지 생성 전에 `cli-api-fallback.md`를 읽는다. API 키, 기본 URL, 모델, `.env` 설정은 폴백 CLI에서 설정 오류가 발생했거나 사용자가 설정 변경을 요청했을 때만 `image-model-configuration.md`를 읽는다.
 
-## Confirmation Text
+## 확인 문구 예시
 
-Built-in backend:
-
-```text
-我检查到当前环境可调用内置图片生成工具（Codex 通常是 image_gen，OpenClaw 通常是 image_generate），因此准备优先用内置工具生成样张，不切到本地 API/CLI fallback。可以开始生成 1 页样张吗？
-```
-
-CLI/API fallback:
+내장 백엔드:
 
 ```text
-我检查后没有可用的内置图片生成工具，或内置工具缺少本页必需能力，因此准备使用本地 API/CLI fallback 生成样张，读取 ~/.codex-ppt-skill/.env 中的 OPENAI_BASE_URL / CODEX_PPT_IMAGE_MODEL 配置。可以开始生成 1 页样张吗？
+현재 환경에서 내장 이미지 생성 도구를 사용할 수 있는지 확인했고 사용 가능하므로, 로컬 API/CLI 폴백으로 전환하지 않고 내장 도구로 샘플을 생성하겠습니다. 샘플 슬라이드 1장을 생성해도 될까요?
 ```
 
-Wait for confirmation before generating the sample slide. If the user questions the backend, resolve that before continuing.
+CLI/API 폴백:
+
+```text
+현재 환경에서 사용할 수 있는 내장 이미지 생성 도구가 없거나 이번 페이지에 필요한 기능을 지원하지 않아 로컬 API/CLI 폴백을 사용하겠습니다. `~/.codex-ppt-skill/.env`의 `OPENAI_BASE_URL` / `CODEX_PPT_IMAGE_MODEL` 설정을 사용합니다. 샘플 슬라이드 1장을 생성해도 될까요?
+```
+
+샘플 슬라이드를 생성하기 전에 확인을 기다린다. 사용자가 백엔드 선택에 이의를 제기하면 먼저 그 문제를 해결한다.

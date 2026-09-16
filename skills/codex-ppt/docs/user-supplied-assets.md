@@ -1,10 +1,10 @@
-# User-Supplied Assets
+# 사용자 제공 자산
 
-Read this before using paper figures, experiment result charts, screenshots, logos, or other assets that must appear in the deck.
+논문 그림, 실험 결과 차트, 스크린샷, 로고 또는 덱에 반드시 포함되어야 하는 기타 자산을 사용하기 전에 읽는다.
 
-When the user provides paper figures, experiment result charts, screenshots, logos, or other assets that must appear in the deck, treat them as source assets, not as loose visual inspiration.
+사용자가 제공한 필수 자산은 느슨한 시각 참고가 아니라 원본 자산으로 취급한다.
 
-Recommended project-local asset location:
+권장 프로젝트 내부 위치:
 
 ```text
 {base_dir}/{deck_name}/assets/
@@ -15,37 +15,37 @@ Recommended project-local asset location:
     └── lab_logo.png
 ```
 
-Do not place source assets in `origin_image/`; that directory is only for final `slide_XX.png` images.
+원본 자산을 `origin_image/`에 넣지 않는다. 이 디렉터리는 최종 `slide_XX.png` 전용이다.
 
-For slides that must include a user-supplied figure:
+사용자 제공 그림을 반드시 포함해야 하는 슬라이드는 다음 규칙을 따른다.
 
-- Record the exact asset path or attachment name in `outline.md` for that slide, preferably as a Markdown image reference inside that slide's `Required images` list, then ask the user to confirm the mapping before generation.
-- Stay on the already selected image backend. Do not switch between built-in image generation and CLI/API fallback only because a slide includes source images.
-- Use the selected backend's reference-image or edit capability when available, with the supplied figure visible as an input image.
-- In built-in `image_gen` mode, every source image must be visible in the conversation context before generating any slide that depends on it. User attachments and images generated earlier in the thread already qualify. For local image paths, inspect each required image with `view_image` first, then generate or edit the slide.
-- In built-in `image_gen` mode, `view_image` is the required way to make local image paths visible to the conversation before generation. It is not a filename parameter to `image_gen`; the generation prompt must still label the visible image by role, such as `Image 1: strict input asset` or `Image 2: approved sample slide style reference`.
-- Ask the model to preserve the supplied figure's data, labels, axes, colors, and visual content, and only compose the surrounding slide layout, title, captions, callouts, and background.
-- Do not ask the model to "redraw", "recreate", "imagine", or "generate a similar chart" for result figures unless the user explicitly wants a stylized redraw.
-- After generation, inspect the output and ask the user to pay special attention to whether required figures were used correctly.
+- 해당 슬라이드의 `outline.md`에 정확한 자산 경로 또는 첨부명과 역할을 기록하고, 가능하면 `Required images` 목록 안에 Markdown 이미지 참조로 표시한 뒤 생성 전에 사용자에게 매핑을 확인받는다.
+- 원본 이미지가 있다는 이유만으로 이미 선택된 이미지 백엔드를 바꾸지 않는다.
+- 선택된 백엔드가 참고 이미지 또는 편집 기능을 지원하면 제공된 그림을 실제 입력 이미지로 전달한다.
+- 내장 `image_gen` 모드에서 슬라이드가 의존하는 모든 원본 이미지는 생성 전에 대화 컨텍스트에서 실제로 볼 수 있어야 한다. 사용자 첨부 이미지와 이 대화에서 생성된 이미지는 이미 해당한다. 로컬 경로는 먼저 이미지 보기 기능으로 검사한다.
+- 로컬 이미지를 컨텍스트에 표시하는 단계와 이미지 생성 도구에 파일명 인자를 넘기는 것은 다른 개념이다. 생성 프롬프트에서는 `Image 1: strict input asset`, `Image 2: approved sample slide style reference`처럼 각 보이는 이미지의 역할을 명확히 지정한다.
+- 모델에는 제공된 그림의 데이터, 라벨, 축, 색상, 시각 내용을 보존하고 주변 슬라이드 레이아웃, 제목, 캡션, 콜아웃, 배경만 구성하도록 지시한다.
+- 사용자가 스타일화된 재작성을 명시적으로 요청하지 않는 한 결과 그림을 `다시 그려라`, `재현하라`, `비슷한 차트를 만들어라`고 지시하지 않는다.
+- 생성 후 결과를 검사하고 필수 그림이 정확히 사용되었는지 특별히 확인한다.
 
-Example prompt fragment for a result-figure slide:
+결과 그림 슬라이드의 프롬프트 예시:
 
 ```json
 {
   "source_assets": [
     {
       "path": "{base_dir}/{deck_name}/assets/figures/result_01.png",
-      "usage": "embed as the main evidence figure",
-      "fidelity": "preserve the figure content; do not redraw or change data, axes, labels, colors, curves, bars, or legends"
+      "usage": "주요 근거 그림으로 삽입",
+      "fidelity": "그림 내용을 보존하고 데이터, 축, 라벨, 색상, 곡선, 막대, 범례를 변경하지 않음"
     }
   ],
   "visual_elements": {
-    "main_visual": "place the supplied result_01.png as a large figure panel, with a short caption and two callouts around it"
+    "main_visual": "제공된 result_01.png를 큰 그림 패널로 배치하고 짧은 캡션과 두 개의 콜아웃을 주변에 배치"
   },
   "constraints": [
-    "Use the provided figure as an input image, not as a loose style reference.",
-    "Do not synthesize a replacement chart.",
-    "Keep all numerical values and labels in the supplied figure unchanged."
+    "제공된 그림을 느슨한 스타일 참고가 아니라 실제 입력 이미지로 사용한다.",
+    "대체 차트를 새로 합성하지 않는다.",
+    "제공된 그림의 숫자와 라벨을 변경하지 않는다."
   ]
 }
 ```

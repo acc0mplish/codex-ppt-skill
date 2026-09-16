@@ -1,127 +1,127 @@
 # Codex PPT Skill
 
-**简体中文** · [English](README_en.md) · [한국어](README_ko.md)
+[简体中文](README.md) · [English](README_en.md) · **한국어**
 
-[![文档](https://img.shields.io/badge/%E6%96%87%E6%A1%A3-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-111827)](https://ningzimu.github.io/codex-ppt-skill/#/) [![支持](https://img.shields.io/badge/%E6%94%AF%E6%8C%81-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9-2CA5E0)](https://t.me/CodexPPT) [![ClawHub](https://img.shields.io/badge/ClawHub-codex--ppt-cd3b35)](https://clawhub.ai/ningzimu/codex-ppt) [![ClawMama](https://img.shields.io/badge/ClawMama-codex--ppt-2CA5E0)](https://app.clawmama.run/skills/5lak48/hermes?utm_source=github&utm_medium=issue&utm_campaign=skill_outreach_ningzimu_codex_ppt_skill) [![GitHub stars](https://img.shields.io/github/stars/ningzimu/codex-ppt-skill?style=flat&logo=github&label=stars)](https://github.com/ningzimu/codex-ppt-skill/stargazers) [![GitHub forks](https://img.shields.io/github/forks/ningzimu/codex-ppt-skill?style=flat&logo=github&label=forks)](https://github.com/ningzimu/codex-ppt-skill/forks)
+[![문서](https://img.shields.io/badge/%EB%AC%B8%EC%84%9C-%EC%82%AC%EC%9A%A9%20%EC%95%88%EB%82%B4-111827)](https://ningzimu.github.io/codex-ppt-skill/#/ko/) [![지원](https://img.shields.io/badge/%EC%A7%80%EC%9B%90-%EB%8F%84%EC%9B%80%EB%B0%9B%EA%B8%B0-2CA5E0)](https://t.me/CodexPPT) [![ClawHub](https://img.shields.io/badge/ClawHub-codex--ppt-cd3b35)](https://clawhub.ai/ningzimu/codex-ppt) [![ClawMama](https://img.shields.io/badge/ClawMama-codex--ppt-2CA5E0)](https://app.clawmama.run/skills/5lak48/hermes?utm_source=github&utm_medium=issue&utm_campaign=skill_outreach_ningzimu_codex_ppt_skill) [![GitHub stars](https://img.shields.io/github/stars/ningzimu/codex-ppt-skill?style=flat&logo=github&label=stars)](https://github.com/ningzimu/codex-ppt-skill/stargazers) [![GitHub forks](https://img.shields.io/github/forks/ningzimu/codex-ppt-skill?style=flat&logo=github&label=forks)](https://github.com/ningzimu/codex-ppt-skill/forks)
 
-一个面向 Codex 的 PPT 生成 skill，也可在 Claude Code、OpenClaw、Hermes Agent 等支持 `SKILL.md` 的 agent 中使用；在这些非 Codex 环境中通常需要配置 `gpt-image-2.5-flare`、第三方生图 API 或 OpenAI 兼容格式的生图接口。它把文章、报告、论文、课程笔记等内容转换成“整页图片式”的演示文稿：先规划大纲和视觉风格，再生成每页幻灯片图片，最后用本地脚本组装为 `.pptx`。
+PowerPoint 덱을 생성하는 Codex용 skill입니다. Codex 외에도 Claude Code, OpenClaw, Hermes Agent 등 `SKILL.md`를 지원하는 다른 에이전트에서도 사용할 수 있으며, 이런 비(非)Codex 환경에서는 보통 `gpt-image-2.5-flare`, 서드파티 이미지 API, 또는 OpenAI 호환 이미지 생성 엔드포인트 설정이 필요합니다. 이 skill은 글, 리포트, 논문, 강의 노트 등의 원본 자료를 "한 페이지 통이미지" 형식의 프레젠테이션으로 변환합니다. 먼저 개요와 시각 스타일을 기획하고, 각 슬라이드를 전면 이미지로 생성한 뒤, 마지막에 로컬 스크립트로 이미지들을 `.pptx` 파일로 조립합니다.
 
-## 赞助
+## 스폰서
 
 <table>
 <tr>
 <td width="180"><img src="assets/atlas-cloud-logo.png" alt="Atlas Cloud" width="160"></td>
-<td>感谢 <a href="https://www.atlascloud.ai/?utm_source=github&utm_medium=link&utm_campaign=codex-ppt-skill">Atlas Cloud</a> 赞助本项目。AtlasCloud 是多模态 AI 推理平台，提供统一 API 接入图片生成、视频生成和大语言模型等能力；本 skill 已支持通过现有 API key、base URL 和模型名配置接入 AtlasCloud 的 GPT Image 2 生图和编辑图接口，按量计费，开箱即用。完整模型列表可查看 <a href="https://www.atlascloud.ai/zh/models">Atlas Cloud 模型页</a>。</td>
+<td>본 프로젝트를 후원해 주신 <a href="https://www.atlascloud.ai/?utm_source=github&utm_medium=link&utm_campaign=codex-ppt-skill">Atlas Cloud</a>에 감사드립니다. AtlasCloud는 이미지 생성, 비디오 생성, LLM 등을 하나의 API로 제공하는 멀티모달 AI 추론 플랫폼입니다. 본 skill은 기존의 API key, base URL, 모델명 설정을 그대로 사용해 AtlasCloud의 GPT Image 2 생성·편집 엔드포인트를 호출할 수 있으며, 사용량 기반 과금과 즉시 사용 가능한 설정을 제공합니다. 전체 모델 목록은 <a href="https://www.atlascloud.ai/zh/models">Atlas Cloud 모델 페이지</a>를 참고하세요.</td>
 </tr>
 <tr>
 <td width="180" align="center"><img src="assets/codia-noteslide-logo.png" alt="Codia NoteSlide" width="64"><br><strong>Codia NoteSlide</strong></td>
-<td>让生成的幻灯片变得可编辑。将 Codex PPT 生成的幻灯片图片、PDF 或 NotebookLM 导出的演示文稿转换为可编辑 PowerPoint。转换快、价格亲民、还原效果好，适合批量图片转 PPT 和高频交付。 <a href="https://codia.ai/noteslide/r/12daee802"><strong>体验 Codia NoteSlide →</strong></a></td>
+<td>생성한 슬라이드를 편집할 수 있게 만드세요. Codex PPT로 생성한 슬라이드 이미지, PDF 또는 NotebookLM에서 내보낸 프레젠테이션을 편집 가능한 PowerPoint로 변환합니다. 빠른 변환, 합리적인 가격, 우수한 시각적 재현으로 대량 이미지의 PPT 변환과 잦은 납품에 적합합니다. <a href="https://codia.ai/noteslide/r/12daee802"><strong>Codia NoteSlide 사용해 보기 →</strong></a></td>
 </tr>
 </table>
 
-## 温馨提示
+## 참고 사항
 
 > [!TIP]
-> 本 skill 负责从文章、报告、大纲或想法生成图片式 PPT，适合强视觉表达，但页面元素本身不可直接编辑。如果你需要进一步转换成可编辑 PPT，可以在生成完成后尝试使用 [image-to-editable-ppt-skill](https://github.com/ningzimu/image-to-editable-ppt-skill) 进行转换。
+> 이 skill은 글, 리포트, 개요, 아이디어로부터 이미지 기반 PPT 덱을 생성합니다. 강한 시각적 표현에 적합하지만, 슬라이드 요소를 직접 편집할 수는 없습니다. 편집 가능한 PPT가 필요하다면 생성된 덱을 [image-to-editable-ppt-skill](https://github.com/ningzimu/image-to-editable-ppt-skill)로 변환해 보세요.
 >
-> 关于 `codex-ppt` 和 `image-to-editable-ppt` 这两个技能的详细介绍，参见 [skill_duo_intro.pdf](assets/skill_duo_intro.pdf)。该 PPT 由 `codex-ppt` skill 生成，提示词为：“请分别阅读 Codex PPT和 Image to Editable PPT 这两个技能的内容，然后用 Codex PPT 帮我做一个PPT吧，20页，每个技能的介绍10页。”
+> `codex-ppt`와 `image-to-editable-ppt`에 대한 자세한 소개는 [skill_duo_intro.pdf](assets/skill_duo_intro.pdf)를 참고하세요. 이 덱은 `codex-ppt` skill로 다음 프롬프트를 사용해 생성했습니다: "请分别阅读 Codex PPT和 Image to Editable PPT 这两个技能的内容，然后用 Codex PPT 帮我做一个PPT吧，20页，每个技能的介绍10页。"
 >
-> 另外，关于这个 PPT Skill 设计和调优的实践经验，可以看这篇文章：[2000 个 GitHub Star 换来的经验：好的 AI Skill 是调出来的，不是写出来的](https://mp.weixin.qq.com/s/LaxWBX-nogHPpSxlk-Vs8Q)。
+> 이 PPT skill의 설계와 튜닝에 대한 실전 노트는 중국어 아티클 [2000 个 GitHub Star 换来的经验：好的 AI Skill 是调出来的，不是写出来的](https://mp.weixin.qq.com/s/LaxWBX-nogHPpSxlk-Vs8Q)에서 볼 수 있습니다.
 
 > [!NOTE]
-> 想查看更多用户用这个 skill 做出的 PPT 效果，可以前往置顶 Issue 的案例展示区：[欢迎分享 codex-ppt 使用案例和 PPT 效果](https://github.com/ningzimu/codex-ppt-skill/issues/34)。
+> 다른 사용자들이 이 skill로 만든 더 많은 PPT 예시를 보려면 상단 고정 쇼케이스 이슈 [欢迎分享 codex-ppt 使用案例和 PPT 效果](https://github.com/ningzimu/codex-ppt-skill/issues/34)를 방문하세요.
 
-这个 skill 主要给大家提供一个还不错的 PPT 生成流程。为了尽量通用，它的流程设计会稍微复杂一些；复杂也会带来不稳定性或者冗余性。比如它同时兼容 Codex 内置生图和 API/CLI fallback 生图，也会兼容有无子 agent 可用这两种情况，但大部分人日常使用时其实只会固定走其中一条路线。
+이 skill은 견고한 PPT 생성 워크플로를 제공하는 것을 목표로 합니다. 폭넓게 두루 쓰이도록 하다 보니 워크플로가 일상적으로 필요한 것보다 다소 복잡하며, 그 복잡함이 때로 불안정성이나 불필요한 선택지를 만들 수 있습니다. 예를 들어 Codex 내장 이미지 생성과 API/CLI fallback 생성을 모두 지원하고, 서브에이전트 유무 두 경우 모두를 지원합니다. 대부분의 사용자는 결국 이 중 한 가지 경로만 사용하게 됩니다.
 
-建议大家在走通自己常用的路线之后，让 AI 帮你改一下这个 skill，把你的偏好固定下来，省得每次都重新选择。比如固定使用内置生图或固定使用某个 API，固定是否使用子 agent，固定常用输出目录、风格、页数节奏等。
+자주 쓰는 경로가 잘 돌아가게 되면, AI 어시스턴트에게 이 skill을 수정해 자신의 선호(선호하는 이미지 백엔드, 서브에이전트 사용 여부, 출력 디렉터리 규칙, 시각 스타일, 슬라이드 페이싱 등)를 고정해 달라고 요청하는 것을 고려해 보세요. 그러면 매번 같은 선택을 반복할 필요가 없습니다.
 
-另外，如果你在做 PPT 的过程中遇到了自己喜欢的版式或排版，无论是这个 skill 做出来的，还是从别的地方找到的 PPT 风格图片，都可以让 AI 保存到你的个人风格库（`~/.codex-ppt-skill/references/`）里，逐步沉淀自己的风格。个人风格库存放在 skill 安装目录之外，更新或重装 skill 都不会丢失。Skills 本质上是非常个性化的流程，鼓励大家在使用这个 skill 的基础上，按自己的偏好持续调优，让它更适配自己的工作流。
+덱을 만들다 마음에 드는 레이아웃이나 시각 스타일을 발견하면 — 이 skill로 만든 것이든 다른 곳에서 찾은 것이든 — AI에게 개인 스타일 라이브러리(`~/.codex-ppt-skill/references/`)에 저장해 달라고 요청해 점차 자신만의 컬렉션을 쌓을 수 있습니다. 개인 스타일 라이브러리는 skill 설치 디렉터리 밖에 있으므로, skill을 업데이트하거나 재설치해도 사라지지 않습니다. Skill은 매우 개인적인 워크플로이므로, 자신의 습관에 맞게 튜닝해 실제 업무에 더 유용하게 만드세요.
 
-关于 skills 如何设计和使用，可以参考 [good-skill-design.pptx](assets/good-skill-design.pptx)。这个 PPT 也是用本 skill 做的，采用的是手绘技术解释风；内容基于 Claude 在设计 skills 方面的最佳实践文章 [The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf)。祝大家玩得愉快！
+skill 설계와 사용에 대한 기본 소개는 [good-skill-design.pptx](assets/good-skill-design.pptx)를 참고하세요. 이 덱 역시 이 skill로 만들었으며, 손그림 기술 설명 스타일을 사용했고, Claude의 skill 설계 모범 사례 아티클 [The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf)를 기반으로 합니다.
 
-## 特点
+## 특징
 
-- 多 agent 可用：支持 Codex、Claude Code、OpenClaw、Hermes Agent 等支持 `SKILL.md` 的环境；最推荐在 Codex 中使用，优先走内置生图和编辑图能力。
-- 第三方生图供应商接入：支持 OpenAI 兼容接口、AtlasCloud、`base URL` 和自定义模型名配置，方便通过 API/CLI fallback 使用 `gpt-image-2.5-flare` 或兼容模型。
-- 稳定的阶段化流程：先确认大纲、页数、视觉风格、生图后端和样张，再进入整套生成，降低一次生成完整 PPT 时的返工和偏航。
-- 不是无脑生成：会先引导你确认 `outline.md`、每页要点、风格方向和样张效果，再按确认后的方案继续。
-- 低门槛输入：文章、报告、论文、课程笔记、Markdown、大纲、PDF、Word 等材料都可以作为起点。
-- 内置 12 种 PPT 风格参考：包括清爽专业、科研答辩、党政红、教学课件、电子墨水杂志、手绘技术解释、仪表盘、麦肯锡等；不会写提示词也可以先从内置风格开始，尤其推荐手绘技术解释风。
-- 支持自定义风格复刻：可以上传喜欢的图片、PDF 或 PPT/PPTX，让 agent 先分析配色、版式、字体和视觉元素，再按该风格生成新 PPT。
-- 可沉淀个人风格库：生成满意后，可以把当前风格保存到个人风格库（`~/.codex-ppt-skill/references/`），下次直接复用；风格库存放在 skill 安装目录之外，更新 skill 不会丢失，同名时个人风格优先于内置风格。
-- 多 agent 并发生成：样张确认后，支持一个子 agent 负责一页，并对文字清晰度、风格一致性和内容完整性做自检，发现问题及时返修。
-- 支持指定图片插入：可以要求某一页必须放入论文原图、实验结果图、截图、架构图等素材，并让页面围绕这些图片适配主题和版式。
-- 自动生成演讲稿：会生成 `speech.md`，并在组装 PPTX 时写入每页备注，方便直接演示或二次修改。
+- 여러 에이전트에서 동작: Codex, Claude Code, OpenClaw, Hermes Agent 등 `SKILL.md` 기반 환경을 지원합니다. 내장 이미지 생성·편집 도구를 우선 사용할 수 있는 Codex가 가장 권장되는 환경입니다.
+- 서드파티 이미지 공급자 연동: OpenAI 호환 엔드포인트, AtlasCloud, `base URL`, 커스텀 모델명 설정을 지원하므로, API/CLI fallback에서 `gpt-image-2.5-flare`나 호환 이미지 모델을 사용할 수 있습니다.
+- 안정적인 단계형 워크플로: 전체 덱 생성 전에 개요, 슬라이드 수, 시각 스타일, 이미지 백엔드, 샘플 슬라이드를 확인하여 완성 PPT 생성 시의 이탈과 재작업을 줄입니다.
+- 원샷이 아닌 가이드형: 계속 진행하기 전에 `outline.md`, 슬라이드별 핵심 포인트, 스타일 방향, 샘플 슬라이드 품질을 확인하도록 요청합니다.
+- 낮은 준비 부담: 글, 리포트, 논문, 강의 노트, Markdown 파일, 개요, PDF, Word 문서 등을 모두 시작 자료로 사용할 수 있습니다.
+- 내장 PPT 스타일 레퍼런스 12종: 클린 프로페셔널, 학술 발표(디펜스), 당정(党政) 레드, 강의 교안, 전자잉크 매거진, 손그림 기술 설명, 대시보드, 맥킨지 스타일 등을 포함합니다. 프롬프트를 직접 쓰고 싶지 않다면 손그림 기술 설명 스타일이 좋은 출발점입니다.
+- 커스텀 스타일 복제 지원: 마음에 드는 이미지, PDF, PPT/PPTX를 제공하면 에이전트가 그 색상, 레이아웃, 타이포그래피, 시각 시스템을 분석한 뒤 해당 스타일로 새 덱을 생성할 수 있습니다.
+- 재사용 가능한 개인 스타일 라이브러리 구축: 덱 스타일이 마음에 들면 에이전트에게 `~/.codex-ppt-skill/references/`에 저장하도록 요청해 이후 덱에서 바로 재사용할 수 있습니다. 이 라이브러리는 skill 설치 밖에 있어 업데이트에도 유지되며, 같은 이름의 개인 스타일은 내장 스타일보다 우선합니다.
+- 병렬 서브에이전트 생성 지원: 샘플 슬라이드가 승인되면 하나의 서브에이전트가 슬라이드 하나를 담당하고, 가독성·스타일 일관성·내용 완결성을 자체 점검한 뒤 수정할 이슈를 보고할 수 있습니다.
+- 필수 이미지 삽입 지원: 논문 그림, 실험 차트, 스크린샷, 아키텍처 다이어그램 등을 특정 슬라이드에 지정하면, 생성된 페이지가 그 주위로 레이아웃과 테마를 맞춥니다.
+- 발표 노트 생성: `speech.md`를 만들고 PPTX 조립 시 각 슬라이드에 노트를 기록해, 발표하거나 수정하기 쉽게 합니다.
 
-## 生成效果
+## 출력 예시
 
-下面是一套技术分享 PPT 的生成效果示例。每页都是由 `gpt-image-2` 生成的完整 16:9 幻灯片图片，再由本地脚本组装为 PPTX。
+아래는 기술 공유 덱의 예시입니다. 각 페이지는 `gpt-image-2`로 생성한 완전한 16:9 슬라이드 이미지이며, 로컬 스크립트로 PPTX 파일로 조립됩니다.
 
-![生成 PPT 效果示例](assets/slides_example.png)
+![생성된 PPT 예시](assets/slides_example.png)
 
-下面是一套论文答辩风案例，来源于论文 [Attention Is All You Need](https://arxiv.org/abs/1706.03762)。它展示了如何在指定页中插入论文原始图片作为输入素材，例如模型架构图、attention 模块图和 attention 可视化图，并围绕这些图片生成统一风格的 PPT（见 Issue #14）。
+아래는 논문 [Attention Is All You Need](https://arxiv.org/abs/1706.03762)를 기반으로 한 학술 발표 예시입니다. 모델 아키텍처, 어텐션 모듈, 어텐션 시각화 등 논문의 원본 그림을 입력 자산으로 특정 슬라이드에 지정한 뒤, 그 그림들을 중심으로 일관된 덱을 생성하는 방법을 보여줍니다(Issue #14 참고).
 
-![论文原图插入案例](assets/paper-figures-example.png)
+![논문 그림 삽입 예시](assets/paper-figures-example.png)
 
-## 风格示例
+## 스타일 예시
 
-以下是已生成预览图的风格，示例图均由 `gpt-image-2` 生成，用于帮助用户在开始制作前选择视觉方向。
+아래 미리보기 이미지들은 사용자가 제작 전에 시각 방향을 고를 수 있도록 `gpt-image-2`로 생성한 것입니다.
 
-| 清爽专业风 | 创意杂志风 |
+| 클린 프로페셔널 | 크리에이티브 매거진 |
 | --- | --- |
-| ![清爽专业风](assets/style-previews/clean-professional.png) | ![创意杂志风](assets/style-previews/creative-magazine.png) |
-| 电子墨水杂志风 | 数据仪表盘风 |
-| ![电子墨水杂志风](assets/style-previews/e-ink-magazine.png) | ![数据仪表盘风](assets/style-previews/data-dashboard.png) |
-| 复古扁平插画风 | 手绘技术解释风 |
-| ![复古扁平插画风](assets/style-previews/retro-flat-illustration.png) | ![手绘技术解释风](assets/style-previews/handdrawn-technical.png) |
-| 手绘白板风 | 温暖手工风 |
-| ![手绘白板风](assets/style-previews/handdrawn-whiteboard.png) | ![温暖手工风](assets/style-previews/warm-handmade.png) |
-| 科研答辩风 | 麦肯锡风格 |
-| ![科研答辩风](assets/style-previews/scientific-defense.png) | ![麦肯锡风格](assets/style-previews/mckinsey-style.png) |
-| 党政红风格 | 教学课件风 |
-| ![党政红风格](assets/style-previews/party-government-red.png) | ![教学课件风](assets/style-previews/teaching-courseware.png) |
+| ![클린 프로페셔널](assets/style-previews/clean-professional.png) | ![크리에이티브 매거진](assets/style-previews/creative-magazine.png) |
+| 전자잉크 매거진 | 데이터 대시보드 |
+| ![전자잉크 매거진](assets/style-previews/e-ink-magazine.png) | ![데이터 대시보드](assets/style-previews/data-dashboard.png) |
+| 레트로 플랫 일러스트 | 손그림 기술 설명 |
+| ![레트로 플랫 일러스트](assets/style-previews/retro-flat-illustration.png) | ![손그림 기술 설명](assets/style-previews/handdrawn-technical.png) |
+| 손그림 화이트보드 | 따뜻한 수제 느낌 |
+| ![손그림 화이트보드](assets/style-previews/handdrawn-whiteboard.png) | ![따뜻한 수제 느낌](assets/style-previews/warm-handmade.png) |
+| 학술 발표(디펜스) | 맥킨지 스타일 |
+| ![학술 발표(디펜스)](assets/style-previews/scientific-defense.png) | ![맥킨지 스타일](assets/style-previews/mckinsey-style.png) |
+| 당정 레드 | 강의 교안 |
+| ![당정 레드](assets/style-previews/party-government-red.png) | ![강의 교안](assets/style-previews/teaching-courseware.png) |
 
-## 输出结构
+## 출력 구조
 
-每个 PPT 会生成一个独立项目目录：
-
-```text
-{基础目录}/{PPT名称}/        # 当前 PPT 的独立项目目录
-├── origin_image/           # 正式幻灯片图片目录，只放最终采用的页面
-│   ├── slide_01.png        # 第 1 页幻灯片图片
-│   ├── slide_02.png        # 第 2 页幻灯片图片
-│   └── ...                 # 后续页面图片，按页码顺序命名
-├── outline.md              # 经确认的 PPT 大纲、页数、每页标题和要点
-├── speech.md               # 演讲稿，会写入 PPT 每页备注
-└── {PPT名称}.pptx          # 最终组装生成的 PowerPoint 文件
-```
-
-你可以在 `origin_image/` 里查看每一页最终采用的幻灯片图片，文件会按 `slide_01.png`、`slide_02.png` 这样的顺序排列。想预览整套 PPT 的视觉效果，或只挑某一页继续修改时，直接看这里最方便。
-
-`speech.md` 是配套演讲稿。生成 `.pptx` 时，这些内容会自动写入每页 PPT 的备注区，你可以在 PowerPoint 里直接查看、修改，或演示时作为讲稿使用。
-
-## 适用场景
-
-- 技术文章转分享 PPT
-- 论文或报告转演示稿
-- 课程笔记转课件
-- 科研项目申报、中期检查、结题验收和论文答辩
-- 商业汇报、产品介绍、调研总结
-- 需要强视觉统一性的图片式演示文稿
-
-## 安装
-
-### 一句话安装
-
-【推荐】可以直接把下面这句话发给你的 Agent，让它帮你安装：
+각 PPT는 독립된 프로젝트 디렉터리에 생성됩니다:
 
 ```text
-请帮我安装这个 codex-ppt skill，链接是：https://github.com/ningzimu/codex-ppt-skill
+{base_dir}/{deck_name}/     # 이 덱을 위한 독립 프로젝트 디렉터리
+├── origin_image/           # 최종 슬라이드 이미지만 저장
+│   ├── slide_01.png        # 1번 슬라이드 이미지
+│   ├── slide_02.png        # 2번 슬라이드 이미지
+│   └── ...                 # 이후 슬라이드 이미지, 슬라이드 순서대로 명명
+├── outline.md              # 확정된 개요, 슬라이드 수, 제목, 핵심 포인트
+├── speech.md               # PPT에 기록되는 발표 노트
+└── {deck_name}.pptx        # 최종 조립된 PowerPoint 파일
 ```
 
-### 手动安装到 Codex
+`origin_image/`로 각 슬라이드에 사용된 최종 이미지를 검토할 수 있습니다. 파일은 `slide_01.png`, `slide_02.png` 식으로 순서대로 명명되어, 덱을 시각적으로 미리 보거나 특정 슬라이드 하나만 수정 요청하기 쉽습니다.
 
-如需手动安装到 Codex，可以使用 `skills` CLI 安装到 Codex 的全局 skills 目录：
+`speech.md`는 동반되는 발표 대본입니다. `.pptx`를 조립할 때 그 내용이 각 슬라이드의 발표 노트에 기록되므로, PowerPoint에서 발표하는 동안 바로 보거나, 편집하거나, 사용할 수 있습니다.
+
+## 활용 사례
+
+- 기술 아티클을 공유용 덱으로 변환.
+- 논문이나 리포트를 프레젠테이션으로 변환.
+- 강의 노트를 교육용 슬라이드로 변환.
+- 연구 제안, 중간 점검, 최종 과제 검수, 학위 논문 발표용 덱 제작.
+- 비즈니스 리포트, 제품 소개, 연구 요약 제작.
+- 강한 시각적 일관성이 필요한 이미지 기반 프레젠테이션 제작.
+
+## 설치
+
+### 한 문장 설치
+
+권장: 아래 문장을 에이전트에게 보내 skill을 대신 설치하게 하세요:
+
+```text
+이 codex-ppt skill을 설치해 줘: https://github.com/ningzimu/codex-ppt-skill
+```
+
+### Codex 수동 설치
+
+Codex에 수동으로 설치하려면 `skills` CLI로 이 skill을 Codex의 전역 skills 디렉터리에 추가하세요:
 
 ```bash
 npx -y skills@latest add ningzimu/codex-ppt-skill \
@@ -130,11 +130,11 @@ npx -y skills@latest add ningzimu/codex-ppt-skill \
   --global
 ```
 
-安装完成后，重启 Codex 让新 skill 生效。
+설치 후 새 skill이 인식되도록 Codex를 재시작하세요.
 
-也可以从 GitHub Releases 下载 `codex-ppt-skill-v*.zip`，解压后把其中的 `codex-ppt` 文件夹放到 `~/.codex/skills/codex-ppt`，然后重启 Codex。
+또는 GitHub Releases에서 `codex-ppt-skill-v*.zip`을 다운로드해 압축을 풀고, 그 안의 `codex-ppt` 디렉터리를 `~/.codex/skills/codex-ppt`에 두고 Codex를 재시작해도 됩니다.
 
-如果你是在本地开发这个仓库，也可以把 skill 目录链接到 Codex skills 目录，方便实时调试修改：
+이 저장소를 로컬에서 개발 중이라면, 대신 skill 디렉터리를 Codex skills 디렉터리로 심볼릭 링크해 변경 사항이 즉시 반영되게 할 수 있습니다:
 
 ```bash
 mkdir -p ~/.codex/skills
@@ -143,19 +143,19 @@ ln -s /path/to/codex-ppt-skill/skills/codex-ppt ~/.codex/skills/codex-ppt
 
 ### OpenClaw
 
-可以通过 ClawHub 安装：
+ClawHub에서 설치:
 
 ```bash
 openclaw skills install codex-ppt
 ```
 
-ClawHub 页面：[clawhub.ai/ningzimu/codex-ppt](https://clawhub.ai/ningzimu/codex-ppt)
+ClawHub 페이지: [clawhub.ai/ningzimu/codex-ppt](https://clawhub.ai/ningzimu/codex-ppt)
 
-如果使用 OpenClaw 的 skill allowlist，需要把 `codex-ppt` 加入允许列表。
+OpenClaw skill 허용 목록을 사용한다면 `codex-ppt`를 허용 skill에 추가하세요.
 
-### Claude Code、Hermes Agent
+### Claude Code 및 Hermes Agent
 
-这些 agent 都可以读取 `SKILL.md` 形式的 skill。也可以使用 `skills` CLI 安装：
+이 에이전트들은 `SKILL.md` skill을 읽을 수 있습니다. `skills` CLI로도 설치할 수 있습니다:
 
 ```bash
 # Claude Code
@@ -171,82 +171,80 @@ npx -y skills@latest add ningzimu/codex-ppt-skill \
   --global
 ```
 
-常见目标目录是：Claude Code 使用 `~/.claude/skills/codex-ppt`，Hermes Agent 使用 `~/.hermes/skills/codex-ppt`。
+일반적인 대상 디렉터리는 Claude Code는 `~/.claude/skills/codex-ppt`, Hermes Agent는 `~/.hermes/skills/codex-ppt`입니다.
 
-如果你是在本地开发这个仓库，也可以用软链接替代复制，方便实时调试修改。
+이 저장소를 로컬에서 개발 중이라면 복사 대신 심볼릭 링크를 사용해 변경 사항이 즉시 반영되게 할 수 있습니다.
 
-### 更新
+### 업데이트
 
-重新执行一遍上面对应的安装命令即可覆盖为最新版本，也可以直接让 agent 帮你更新：
+위의 해당 설치 명령을 다시 실행해 설치된 skill을 최신 버전으로 덮어쓰거나, 에이전트에게 업데이트를 요청하기만 하면 됩니다:
 
 ```text
-请帮我更新 codex-ppt skill 到最新版本，仓库是：https://github.com/ningzimu/codex-ppt-skill
+codex-ppt skill을 최신 버전으로 업데이트해 줘. 저장소는: https://github.com/ningzimu/codex-ppt-skill
 ```
 
-更新后重启 agent 生效。API key 配置（`~/.codex-ppt-skill/.env`）和个人风格库（`~/.codex-ppt-skill/references/`）都在 skill 安装目录之外，更新或重装不会丢失。
+업데이트 후 에이전트를 재시작하세요. API key 설정(`~/.codex-ppt-skill/.env`)과 개인 스타일 라이브러리(`~/.codex-ppt-skill/references/`)는 skill 설치 디렉터리 밖에 있으므로, 업데이트나 재설치로 사라지지 않습니다.
 
-## 生图模型配置
+## 이미지 모델 설정
 
 > [!TIP]
-> 你可以先正常使用 Codex PPT 开始制作 PPT。一般不需要自己手动配置生图模型；当流程走到“选择生图后端”时，AI 会根据当前环境判断是否需要配置，并在需要时引导你提供相关信息。
+> Codex PPT를 그냥 평소처럼 사용해 덱을 만들면 됩니다. 대부분의 경우 이미지 모델을 손으로 설정할 필요가 없습니다. 워크플로가 이미지 백엔드를 고르라고 할 때 AI가 현재 환경을 확인하고 필요한 정보를 안내합니다.
 >
-> - 如果你使用的是 Codex 内置图片生成能力，通常不需要额外配置 API key。
-> - 如果你确定要使用第三方供应商或 OpenAI 兼容中转站，请让 AI 先阅读 [生图模型配置指南](skills/codex-ppt/docs/image-model-configuration.md)，再配置 API key、base URL 和模型名。
+> - Codex의 내장 이미지 생성을 사용한다면 보통 별도 API key가 필요 없습니다.
+> - 서드파티 공급자나 OpenAI 호환 프록시가 필요하다고 확인했다면, API key, base URL, 모델명을 설정하기 전에 AI에게 [이미지 모델 설정 가이드](skills/codex-ppt/docs/image-model-configuration.md)를 읽어 달라고 요청하세요.
 
-指定图片分辨率、提高质量或要求修改某一页，本身不会触发第三方 API 配置。如果你是通过 GPT 会员订阅使用 Codex，并且 Codex 内置图片生成工具可用，通常可以继续使用内置生图能力，不需要准备 API key。
+특정 해상도, 더 높은 품질, 슬라이드 하나 수정을 요청하는 것만으로는 서드파티 API 설정이 자동으로 시작되지 않습니다. GPT 구독으로 Codex를 사용하고 Codex의 내장 이미지 생성 도구를 쓸 수 있다면, 대개 내장 이미지 도구를 계속 사용할 수 있고 API key를 준비할 필요가 없습니다.
 
-## 使用方式
+## 사용법
 
-在 Codex、Claude Code、OpenClaw 或 Hermes Agent 中明确指定使用 `codex-ppt` skill，例如：
+Codex, Claude Code, OpenClaw, Hermes Agent에게 `codex-ppt` skill을 명시적으로 지정해 요청하세요. 예:
 
 ```text
-请使用 codex-ppt skill 把 /path/to/article.md 做成 10 页左右的 PPT。
+codex-ppt skill을 사용해 /path/to/article.md를 약 10장짜리 PPT로 만들어 줘.
 ```
 
-skill 会按以下流程执行：
+skill은 다음 워크플로를 따릅니다:
 
-1. 阅读内容并规划 PPT 大纲
-2. 生成 `outline.md`，并请求你确认页数、标题和每页要点
-3. 给出 2-3 个视觉风格选项，并推荐一个让用户确认
-4. 在首次生图前说明将使用的生图方式，并请求你确认
-5. 使用确认后的图片生成后端生成 1 页样张，让用户确认风格、版式节奏和文字质量
-6. 创建 PPT 项目目录
-7. 使用同一图片生成后端逐页生成全部幻灯片图片
-8. 检查文字清晰度、风格一致性和内容完整性
-9. 生成 `speech.md`
-10. 使用 `assemble_ppt.py` 组装 `.pptx`
-11. 可选：如果生成的 PPT 风格你很喜欢，可以保存到风格库；如果使用的是内置风格，则无需重复保存
+1. 원본 내용을 읽고 덱 개요를 기획합니다.
+2. `outline.md`를 생성하고 슬라이드 수, 슬라이드 제목, 핵심 포인트를 확인받습니다.
+3. 2~3개의 시각 스타일 옵션을 제시하고 하나를 추천해 사용자 확인을 받습니다.
+4. 첫 이미지 생성 전에 이미지 생성 백엔드를 밝히고 확인받습니다.
+5. 확정된 이미지 백엔드로 샘플 슬라이드 하나를 생성해 스타일, 레이아웃 리듬, 텍스트 품질을 승인받습니다.
+6. PPT 프로젝트 디렉터리를 만듭니다.
+7. 같은 이미지 백엔드로 모든 슬라이드 이미지를 하나씩 생성합니다.
+8. 텍스트 가독성, 스타일 일관성, 내용 완결성을 점검합니다.
+9. `speech.md`를 생성합니다.
+10. `assemble_ppt.py`로 `.pptx`를 조립합니다.
+11. 선택 사항: 생성된 PPT 스타일이 정말 마음에 들면 스타일 라이브러리에 저장합니다. 이미 내장 스타일을 사용했다면 다시 저장할 필요는 없습니다.
 
-## 使用技巧
+## 사용 팁
 
-- 优先使用当前环境可调用的内置生图工具；实际模型、分辨率和可调参数取决于环境，不能仅凭会员身份或成功出图确认。若需精确指定尺寸或质量，而内置工具未暴露这些参数，可选择支持相应参数的 API/CLI fallback。API/CLI fallback 默认输出为 2K 16:9；文字较多或仍模糊时可尝试 4K；GPT Image 2.5 超过 `2560x1440` 像素的输出属于实验性能力，需检查实际结果。
-- API/CLI fallback 默认使用 `gpt-image-2.5-flare`，可用 `--model gpt-image-2.5-sunburst` 切换。两者支持 `xhigh` / `max` 质量及透明 PNG/WebP；默认仍为 2K 16:9、`medium`。旧模型保留原参数限制，第三方服务需确认其支持的模型和参数。
-- 如果只是不满意某一页的内容、排版、配色或文字表达，可以直接让当前 agent 针对这一页做细致修改，不需要整套 PPT 重新生成。
+- 현재 환경에서 호출 가능한 내장 이미지 도구를 우선 사용합니다. 실제 모델, 해상도, 조절 가능한 매개변수는 환경에 따라 다르며, 구독 여부나 이미지 생성 성공만으로 확인할 수 없습니다. 정확한 크기나 품질 지정이 필요하지만 내장 도구가 해당 매개변수를 제공하지 않으면 이를 지원하는 API/CLI fallback을 선택하세요. API/CLI fallback의 기본 출력은 2K 16:9이며, 텍스트가 많거나 흐릿한 슬라이드는 4K를 시도할 수 있습니다. GPT Image 2.5에서 `2560x1440` 픽셀을 초과하는 출력은 실험적 기능이므로 실제 결과를 확인하세요.
+- API/CLI fallback의 기본 모델은 `gpt-image-2.5-flare`이며, `--model gpt-image-2.5-sunburst`로 전환할 수 있습니다. 두 모델은 `xhigh` / `max` 품질과 투명 PNG/WebP를 지원합니다. 기본값은 2K 16:9와 `medium`을 유지합니다. 이전 모델의 매개변수 제한은 유지되며, 서드파티 서비스가 지원하는 모델과 매개변수를 확인해야 합니다.
+- 특정 슬라이드의 내용, 레이아웃, 색상, 문구가 마음에 들지 않으면, 전체 덱을 다시 생성하는 대신 현재 에이전트에게 그 슬라이드를 상세히 다듬어 달라고 요청하세요.
 
-![单页局部修改示意：打开 PPT、点击标注，并框选需要修改的位置](assets/single-slide-revision-example.png)
+![슬라이드 단건 수정 예시: PPT를 열고 주석을 클릭해 수정할 영역을 표시](assets/single-slide-revision-example.png)
 
-- 你也可以提供喜欢的 PPT 风格参考，可以是一张截图、多张截图，或完整 PPT/PDF。建议先让当前 agent 分析参考材料的配色、版式、字体和视觉元素，再按这个风格生成新 PPT。生成满意后，也可以让 agent 把这套风格保存到个人风格库（`~/.codex-ppt-skill/references/`）里，方便以后复用，且不会因更新 skill 而丢失。
-- 如果需要插入论文原图、实验结果图、截图或架构图，可以在大纲中指定这些图片对应的页码和用途。
+- 마음에 드는 PPT 스타일 레퍼런스(스크린샷 하나, 여러 장, 또는 전체 PPT/PDF)를 제공할 수도 있습니다. 현재 에이전트에게 먼저 색상, 레이아웃, 타이포그래피, 시각 요소를 분석한 뒤 해당 스타일로 새 덱을 생성해 달라고 요청하세요. 결과가 좋으면 그 스타일을 개인 스타일 라이브러리 `~/.codex-ppt-skill/references/`에 저장하도록 요청해 이후에 재사용할 수 있으며, skill을 업데이트해도 사라지지 않습니다.
+- 논문 그림, 실험 차트, 스크린샷, 아키텍처 다이어그램을 포함해야 한다면, 개요에서 각 이미지의 대상 슬라이드와 역할을 지정하세요.
 
-## 我的其他项目
+## 관련 프로젝트
 
-- [image-to-editable-ppt-skill](https://github.com/ningzimu/image-to-editable-ppt-skill)：把幻灯片截图、PDF 页面或图片版 PPTX 重建为可编辑 PowerPoint，适合在 `codex-ppt` 生成整页图片后继续做可编辑化。
-- [codex-gpt-image](https://github.com/ningzimu/codex-gpt-image)：通过 Codex OAuth / 会员登录生成图片，支持 GPT Image 2.5 请求参数；实际后端模型取决于服务端。
-- [handdrawn-tech-illustrations](https://github.com/ningzimu/handdrawn-tech-illustrations)：面向中文技术内容的手绘配图 skill，可以把技术文章、产品笔记、截图、大纲或粗略想法生成正文配图、概念解释图、微信公众号封面和小红书封面；风格强调亲和、轻卡通、中文可读和适中的信息密度。
-- [awesome-ai-ppt](https://github.com/ningzimu/awesome-ai-ppt)：精选的 AI PPT 相关开源项目，按 HTML-first、图片生成式、PPTX-native、转换与自动化基础设施等工作流分类，关注能帮助 agent 或开发者创建、编辑、转换、检查 PPT 的 GitHub 仓库。
-- [awesome-skills](https://github.com/ningzimu/awesome-skills)：精选实用的 AI Agent Skills 与配套工具；安装一个入口后，Agent 会根据任务从持续更新的清单中选择、安装并使用合适的 skill。
-- [claude-code-lens](https://github.com/ningzimu/claude-code-lens)：Claude Code 本地观测工具，用来查看 API 流量、日志、prompt 和工具调用，适合排查 agent 实际在做什么。
+- [image-to-editable-ppt-skill](https://github.com/ningzimu/image-to-editable-ppt-skill): 슬라이드 스크린샷, PDF 페이지, 이미지 기반 PPTX 파일을 편집 가능한 PowerPoint 덱으로 재구성합니다. `codex-ppt`가 이미지 기반 슬라이드를 생성한 뒤에 유용합니다.
+- [codex-gpt-image](https://github.com/ningzimu/codex-gpt-image): Codex OAuth / 멤버 로그인으로 이미지를 생성하며 GPT Image 2.5 요청 매개변수를 지원합니다. 실제 백엔드 모델은 서비스에 따라 달라집니다.
+- [handdrawn-tech-illustrations](https://github.com/ningzimu/handdrawn-tech-illustrations): 중국어 기술 콘텐츠를 위한 손그림 일러스트 skill입니다. 기술 아티클, 제품 노트, 스크린샷, 개요, 대략적인 아이디어를 아티클 삽화, 개념 설명 그래픽, WeChat 커버 이미지, Rednote 커버로 변환하며, 친근하고 가벼운 카툰풍에 중국어 가독성이 좋고 적당한 정보 밀도를 갖습니다.
+- [awesome-ai-ppt](https://github.com/ningzimu/awesome-ai-ppt): 오픈소스 AI PPT 프로젝트를 HTML-first, image-first, PPTX-native, 변환, 자동화 인프라 등의 워크플로별로 정리한 큐레이션 목록입니다. 에이전트나 개발자가 PPT 덱을 만들고, 편집하고, 변환하고, 검사하는 데 도움이 되는 GitHub 프로젝트에 초점을 둡니다.
+- [awesome-skills](https://github.com/ningzimu/awesome-skills): 실용적인 AI Agent Skills와 관련 도구를 엄선한 목록입니다. 하나의 진입점을 설치하면 에이전트가 지속적으로 업데이트되는 목록을 참고해 작업에 맞는 skill을 선택하고 설치해 사용할 수 있습니다.
+- [claude-code-lens](https://github.com/ningzimu/claude-code-lens): Claude Code의 API 트래픽, 로그, 프롬프트, 도구 호출을 위한 로컬 관찰(observability) 도구로, 에이전트가 실제로 무엇을 하는지 이해하는 데 유용합니다.
 
-## 支持
+## 지원
 
-遇到问题？请查看[使用文档](https://ningzimu.github.io/codex-ppt-skill/#/)，加入 [CodexPPT](https://t.me/CodexPPT)，或[提交 Issue](https://github.com/ningzimu/codex-ppt-skill/issues/new)。
+문제가 있나요? [사용 설명서](https://ningzimu.github.io/codex-ppt-skill/#/ko/)를 확인하고, [CodexPPT](https://t.me/CodexPPT)에 참여하거나, [Issue를 등록하세요](https://github.com/ningzimu/codex-ppt-skill/issues/new).
 
-<img width="220" alt="微信 2026-09-13 13 27 42" src="https://github.com/user-attachments/assets/e3df121d-7c26-49e5-b953-b9d0dbfb39ed" />
-
-## 许可证
+## 라이선스
 
 MIT
 
-## 致谢
+## 감사의 말
 
-感谢 [LinuxDO](https://linux.do) 社区的支持。
+[LinuxDO](https://linux.do) 커뮤니티의 지원에 감사드립니다.

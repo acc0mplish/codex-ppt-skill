@@ -1,35 +1,35 @@
-# Image Model Configuration
+# 이미지 모델 설정
 
-Use this reference only when the local API/CLI fallback is needed and the runtime config is missing or must be changed.
+로컬 API/CLI 폴백이 필요하고 런타임 설정이 없거나 변경해야 할 때만 이 문서를 사용한다.
 
-Do not manually parse `.env`. The fallback CLI loads the shared config automatically. Run the fallback command first, then use this document only if the CLI reports missing or invalid configuration.
+`.env`를 수동으로 파싱하지 않는다. 폴백 CLI가 공유 설정을 자동으로 읽으므로 먼저 폴백 명령을 실행하고, CLI가 설정 누락이나 오류를 보고할 때만 이 문서를 사용한다.
 
-Ask the user to configure or update settings only when:
+다음 경우에만 사용자에게 설정을 추가하거나 변경하도록 요청한다.
 
-- The fallback CLI reports missing `OPENAI_API_KEY`.
-- The user explicitly wants to change API key, base URL, or model.
-- A real API call fails with authentication, permission, base URL, or model-not-found errors.
+- 폴백 CLI가 `OPENAI_API_KEY` 누락을 보고함
+- 사용자가 API 키, 기본 URL, 모델 변경을 명시적으로 요청함
+- 실제 API 호출이 인증, 권한, 기본 URL 또는 모델 없음 오류로 실패함
 
-## When Configuration Is Needed
+## 설정이 필요한 경우
 
-Configure image API access only for API/CLI fallback image generation.
+이미지 API 설정은 API/CLI 폴백 이미지 생성에만 필요하다.
 
-Typical cases:
+대표 사례:
 
-- Codex is using a third-party API or OpenAI-compatible proxy for image generation.
-- The skill is being used from Claude Code, OpenClaw, Hermes Agent, or another agent without Codex's built-in image tool.
+- Codex에서 서드파티 API 또는 OpenAI 호환 프록시를 사용함
+- Claude Code, OpenClaw, Hermes Agent 등 Codex 내장 이미지 도구가 없는 환경에서 스킬을 사용함
 
-If Codex is being used through a GPT subscription and the built-in image tool is available, do not ask the user to configure `gpt-image-2.5-flare`.
+Codex 내장 이미지 도구를 사용할 수 있다면 `gpt-image-2.5-flare` 설정을 요구하지 않는다.
 
-## Required And Optional Values
+## 필수 및 선택 값
 
-- `OPENAI_API_KEY` is required for real API/CLI fallback calls.
-- `OPENAI_BASE_URL` is optional. When it is unset, the CLI uses the official OpenAI API. When it is set, the CLI uses the configured third-party provider base URL.
-- `CODEX_PPT_IMAGE_MODEL` is optional. The default is `gpt-image-2.5-flare`. Use `gpt-image-2.5-sunburst` to select Sunburst, or a model name supported by the provider.
+- `OPENAI_API_KEY`: 실제 API/CLI 폴백 호출에 필수
+- `OPENAI_BASE_URL`: 선택. 미설정 시 공식 OpenAI API 사용, 설정 시 해당 서드파티 공급자 기본 URL 사용
+- `CODEX_PPT_IMAGE_MODEL`: 선택. 기본값 `gpt-image-2.5-flare`; Sunburst는 `gpt-image-2.5-sunburst`, 또는 공급자가 지원하는 모델명 사용
 
-Configure provided API settings with `scripts/codex_ppt_runtime.py config --api-key`. The config command writes `~/.codex-ppt-skill/.env`.
+제공된 API 설정은 `scripts/codex_ppt_runtime.py config --api-key`로 저장한다. 설정 명령은 `~/.codex-ppt-skill/.env`를 작성한다.
 
-## Official OpenAI Example
+## 공식 OpenAI 예시
 
 ```bash
 python3 {skill_root}/scripts/codex_ppt_runtime.py config \
@@ -37,9 +37,7 @@ python3 {skill_root}/scripts/codex_ppt_runtime.py config \
   --model gpt-image-2.5-flare
 ```
 
-## OpenAI-Compatible Provider Example
-
-Use this shape for providers that implement the OpenAI Images API paths used by the fallback CLI.
+## OpenAI 호환 공급자 예시
 
 ```bash
 python3 {skill_root}/scripts/codex_ppt_runtime.py config \
@@ -48,7 +46,7 @@ python3 {skill_root}/scripts/codex_ppt_runtime.py config \
   --model gpt-image-2.5-flare
 ```
 
-This produces the same effective runtime config as:
+이는 다음과 같은 런타임 설정을 만든다.
 
 ```env
 OPENAI_API_KEY=your-provider-api-key
@@ -56,13 +54,13 @@ OPENAI_BASE_URL=https://xxxx.example.com/v1
 CODEX_PPT_IMAGE_MODEL=gpt-image-2.5-flare
 ```
 
-For OpenAI-compatible providers, `OPENAI_BASE_URL` should normally end at the provider's `/v1` root. Do not set it to `/images/generations`, `/images/edits`, or another terminal endpoint. The fallback CLI appends the image-generation or image-edit path through the OpenAI SDK.
+OpenAI 호환 공급자의 `OPENAI_BASE_URL`은 일반적으로 공급자의 `/v1` 루트에서 끝나야 한다. `/images/generations`, `/images/edits` 같은 최종 엔드포인트를 넣지 않는다. 폴백 CLI가 OpenAI SDK를 통해 이미지 생성/편집 경로를 덧붙인다.
 
-Use the provider's model name only when the provider documents a custom name. Otherwise prefer `gpt-image-2.5-flare`.
+공급자가 별도 모델명을 문서화한 경우에만 그 이름을 사용하고, 그렇지 않으면 `gpt-image-2.5-flare`를 우선한다.
 
-## AtlasCloud Example
+## AtlasCloud 예시
 
-For AtlasCloud, set `--model` to the base model name. The CLI chooses the matching generation or editing model route internally. This example retains the known `gpt-image-2` route; check provider documentation before selecting a 2.5 model.
+AtlasCloud에서는 `--model`에 기본 모델명을 지정한다. CLI가 생성/편집 라우트를 내부에서 선택한다. 아래 예시는 알려진 `gpt-image-2` 경로를 유지한 것이므로 2.5 모델을 선택하기 전에는 공급자 문서를 확인한다.
 
 ```bash
 python3 {skill_root}/scripts/codex_ppt_runtime.py config \
@@ -71,14 +69,14 @@ python3 {skill_root}/scripts/codex_ppt_runtime.py config \
   --model openai/gpt-image-2
 ```
 
-## Runtime Config
+## 런타임 설정 파일
 
-The config is written to:
+설정은 다음에 저장된다.
 
 ```text
 ~/.codex-ppt-skill/.env
 ```
 
-The file is created with mode `0600`. It is shared by Codex, Claude Code, OpenClaw, Hermes Agent, and other local agents.
+파일 권한은 `0600`으로 생성되며 Codex, Claude Code, OpenClaw, Hermes Agent 등 로컬 에이전트가 공유한다.
 
-Process environment variables override `.env` values. A command-line `--model` overrides `CODEX_PPT_IMAGE_MODEL` for that single command.
+프로세스 환경변수는 `.env` 값을 덮어쓴다. 명령줄의 `--model`은 해당 명령에서만 `CODEX_PPT_IMAGE_MODEL`을 덮어쓴다.
