@@ -4,6 +4,10 @@ Release notes are generated from this file. Keep changelog entries in English.
 
 ## Unreleased
 
+### Documentation
+
+- Make Korean the default repository and codex-ppt skill documentation experience, including runtime guides, worker prompts, and built-in style briefs. (#1)
+
 ## 0.6.0
 
 ### Improvements
