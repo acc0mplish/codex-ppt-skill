@@ -1,16 +1,16 @@
-# 安装与配置
+# 설치 및 설정
 
-## 一句话安装
+## 한 문장으로 설치하기
 
-推荐直接把下面这句话发给 Codex，让它帮你安装：
+아래 문장을 Codex에 직접 보내 설치를 맡기는 것을 권장합니다.
 
 ```text
-请帮我安装这个 codex-ppt skill，链接是：https://github.com/ningzimu/codex-ppt-skill
+이 codex-ppt skill을 설치해 주세요. 링크: https://github.com/ningzimu/codex-ppt-skill
 ```
 
-## Codex 手动安装
+## Codex 수동 설치
 
-在命令行中执行以下命令，将 `codex-ppt` skill 安装到 Codex 全局 skills 目录：
+명령줄에서 다음 명령을 실행해 `codex-ppt` skill을 Codex의 전역 skills 디렉터리에 설치합니다.
 
 ```bash
 npx -y skills@latest add ningzimu/codex-ppt-skill \
@@ -19,28 +19,28 @@ npx -y skills@latest add ningzimu/codex-ppt-skill \
   --global
 ```
 
-安装后重启 Codex，让新 skill 生效。
+설치 후 Codex를 재시작하면 새 skill이 적용됩니다.
 
-也可以从 [GitHub Releases](https://github.com/ningzimu/codex-ppt-skill/releases) 下载 `codex-ppt-skill-v*.zip`，解压后把其中的 `codex-ppt` 文件夹放到 `~/.codex/skills/codex-ppt`，然后重启 Codex。
+[GitHub Releases](https://github.com/ningzimu/codex-ppt-skill/releases)에서 `codex-ppt-skill-v*.zip`을 다운로드해 압축을 푼 뒤, 그 안의 `codex-ppt` 폴더를 `~/.codex/skills/codex-ppt`에 넣고 Codex를 재시작하는 방법도 있습니다.
 
-如果你在本地开发这个仓库，可以把 skill 目录软链接到 Codex skills 目录，方便实时调试修改：
+이 저장소를 로컬에서 개발하는 경우, 실시간으로 수정 사항을 테스트할 수 있도록 skill 디렉터리를 Codex skills 디렉터리에 심볼릭 링크로 연결할 수 있습니다.
 
 ```bash
 mkdir -p ~/.codex/skills
 ln -s /path/to/codex-ppt-skill/skills/codex-ppt ~/.codex/skills/codex-ppt
 ```
 
-## OpenClaw 安装
+## OpenClaw 설치
 
 ```bash
 openclaw skills install codex-ppt
 ```
 
-如果使用 OpenClaw 的 skill allowlist，需要把 `codex-ppt` 加入允许列表。
+OpenClaw의 skill allowlist를 사용하는 경우 허용 목록에 `codex-ppt`를 추가해야 합니다.
 
 ## Claude Code / Hermes Agent
 
-Claude Code：
+Claude Code:
 
 ```bash
 npx -y skills@latest add ningzimu/codex-ppt-skill \
@@ -49,7 +49,7 @@ npx -y skills@latest add ningzimu/codex-ppt-skill \
   --global
 ```
 
-Hermes Agent：
+Hermes Agent:
 
 ```bash
 npx -y skills@latest add ningzimu/codex-ppt-skill \
@@ -58,37 +58,37 @@ npx -y skills@latest add ningzimu/codex-ppt-skill \
   --global
 ```
 
-常见目标目录：Claude Code 使用 `~/.claude/skills/codex-ppt`，Hermes Agent 使用 `~/.hermes/skills/codex-ppt`。本地开发时同样可以用软链接替代复制。
+일반적인 대상 디렉터리는 Claude Code의 경우 `~/.claude/skills/codex-ppt`, Hermes Agent의 경우 `~/.hermes/skills/codex-ppt`입니다. 로컬 개발 시에는 복사 대신 심볼릭 링크를 사용할 수도 있습니다.
 
-## 更新 skill
+## skill 업데이트
 
-推荐直接把下面这句话发给你的 agent，让它帮你更新：
+아래 문장을 사용 중인 agent에게 직접 보내 업데이트를 맡기는 것을 권장합니다.
 
 ```text
-请帮我更新 codex-ppt skill 到最新版本，仓库是：https://github.com/ningzimu/codex-ppt-skill
+codex-ppt skill을 최신 버전으로 업데이트해 주세요. 저장소: https://github.com/ningzimu/codex-ppt-skill
 ```
 
-手动更新时，重新执行上面对应 agent 的安装命令即可，会用最新版本覆盖已安装的 skill；也可以从 [GitHub Releases](https://github.com/ningzimu/codex-ppt-skill/releases) 下载最新的 `codex-ppt-skill-v*.zip`，解压后替换原来的 `codex-ppt` 目录。更新完成后重启 agent 生效。
+수동으로 업데이트할 때는 위에서 해당 agent에 맞는 설치 명령을 다시 실행하면 설치된 skill이 최신 버전으로 덮어써집니다. 또는 [GitHub Releases](https://github.com/ningzimu/codex-ppt-skill/releases)에서 최신 `codex-ppt-skill-v*.zip`을 다운로드해 압축을 풀고 기존 `codex-ppt` 디렉터리를 교체할 수 있습니다. 업데이트 후 agent를 재시작하면 적용됩니다.
 
-更新是安全的：API key 等运行时配置保存在 `~/.codex-ppt-skill/.env`，个人风格库保存在 `~/.codex-ppt-skill/references/`，都在 skill 安装目录之外，更新或重装不会丢失。每个版本的变更内容可以查看 [Releases 页面](https://github.com/ningzimu/codex-ppt-skill/releases)或仓库的 `CHANGELOG.md`。
+업데이트는 안전합니다. API key 등의 런타임 설정은 `~/.codex-ppt-skill/.env`에, 개인 스타일 라이브러리는 `~/.codex-ppt-skill/references/`에 저장되며 모두 skill 설치 디렉터리 외부에 있습니다. 따라서 skill을 업데이트하거나 다시 설치해도 사라지지 않습니다. 각 버전의 변경 사항은 [Releases 페이지](https://github.com/ningzimu/codex-ppt-skill/releases) 또는 저장소의 `CHANGELOG.md`에서 확인할 수 있습니다.
 
-## 生图模型配置
+## 이미지 생성 모델 설정
 
-需要一个当前环境可用的生图后端：内置工具或兼容的图片 API。无需固定依赖某个模型。
+현재 환경에서 사용할 수 있는 내장 도구 또는 호환 이미지 API가 필요합니다. 특정 모델에 의존하지 않습니다.
 
-API/CLI fallback 默认使用 `gpt-image-2.5-flare`，可用 `--model gpt-image-2.5-sunburst` 切换。两者支持 `xhigh` / `max` 质量及透明 PNG/WebP；默认仍为 2K 16:9、`medium`。旧模型保留原参数限制，第三方服务需确认其支持的模型和参数。
+API/CLI fallback의 기본 모델은 `gpt-image-2.5-flare`이며, `--model gpt-image-2.5-sunburst`로 전환할 수 있습니다. 두 모델은 `xhigh` / `max` 품질과 투명 PNG/WebP를 지원합니다. 기본값은 2K 16:9와 `medium`을 유지합니다. 이전 모델의 매개변수 제한은 유지되며, 서드파티 서비스가 지원하는 모델과 매개변수를 확인해야 합니다.
 
-AI 会先检查内置工具是否可调用，再生成样张验证文字和视觉质量。内置工具的实际模型与参数由环境决定，不能仅凭 ChatGPT 会员身份或成功出图确认已使用 2.5。只有选择 API/CLI fallback 后，才按报错配置 API key、base URL 和服务商支持的模型名。
+AI는 내장 도구를 호출할 수 있는지 먼저 확인한 뒤 샘플을 생성하여 텍스트와 시각 품질을 검증합니다. 실제 모델과 매개변수는 환경에 따라 다르며, ChatGPT 구독이나 이미지 생성 성공만으로 2.5 사용을 입증할 수 없습니다. API/CLI fallback을 선택한 후 오류에 따라 API key, base URL, 서비스가 지원하는 모델명을 설정합니다.
 
-## 第三方 API 注意事项
+## 서드파티 API 유의 사항
 
-本 skill 内置了一个适配 OpenAI 官方生图方式的脚本。如果你用的是第三方 `gpt-image-2.5-flare` 中转 API，可以尝试提供：
+이 skill에는 OpenAI 공식 이미지 생성 방식을 지원하는 스크립트가 포함되어 있습니다. 서드파티 `gpt-image-2.5-flare` 프록시 API를 사용하는 경우 다음 정보를 제공해 보세요.
 
-- 中转站的 base URL
-  - 中转站示例如果是 `https://xxx/v1/images/generations`，base URL 填 `https://xxx/v1`。
-  - 如果中转站已经给的是 `https://xxx/v1`，不要再加一层，避免 `.../v1/v1`。
-  - 如果是官方 OpenAI，`OPENAI_BASE_URL` 可以不填，默认就是官方 `https://api.openai.com/v1`。
-- 中转站的 API key
-- 中转站的 `gpt-image-2.5-flare` 具体模型名
+- 프록시 서비스의 base URL
+  - 프록시 서비스에서 제공한 예시가 `https://xxx/v1/images/generations`라면 base URL에는 `https://xxx/v1`을 입력합니다.
+  - 프록시 서비스에서 이미 `https://xxx/v1`을 제공했다면 한 단계를 더 추가하지 마세요. 그렇지 않으면 `.../v1/v1`이 됩니다.
+  - OpenAI 공식 서비스를 사용하는 경우 `OPENAI_BASE_URL`을 입력하지 않아도 됩니다. 기본값은 공식 주소인 `https://api.openai.com/v1`입니다.
+- 프록시 서비스의 API key
+- 프록시 서비스의 구체적인 `gpt-image-2.5-flare` 모델명
 
-将上述信息提供给 AI 之后，尝试让其生图。如果跑不通，则可能你使用的中转站有自定义的生图使用方案，不完全兼容 OpenAI 生图接口。请将中转站官方的生图使用文档发给 AI，让它学习并适配生图脚本。
+위 정보를 AI에 제공한 뒤 이미지 생성을 시도하세요. 실행되지 않는다면 사용하는 프록시 서비스에 OpenAI 이미지 생성 인터페이스와 완전히 호환되지 않는 자체 이미지 생성 방식이 있을 수 있습니다. 프록시 서비스의 공식 이미지 생성 문서를 AI에 전달해 스크립트를 학습하고 조정하도록 하세요.

@@ -1,24 +1,24 @@
-# CLI/API Fallback
+# CLI/API 폴백
 
-Use this reference only after CLI/API fallback has been selected and confirmed with the user. The main `SKILL.md` owns the backend decision rules; this document owns fallback commands, runtime setup, image-input limits, editing, transparency, and troubleshooting.
+CLI/API 폴백을 선택하고 사용자에게 확인받은 뒤에만 이 문서를 사용한다. 백엔드 선택 규칙은 `SKILL.md`가 담당하고, 이 문서는 폴백 명령, 런타임 준비, 이미지 입력 제한, 편집, 투명 배경, 문제 해결을 다룬다.
 
-Let `{skill_root}` mean the directory containing `SKILL.md`.
+`{skill_root}`는 `SKILL.md`가 있는 디렉터리를 의미한다.
 
-## Runtime Setup
+## 런타임 준비
 
-CLI/API fallback commands use the shared runtime environment. Before running `scripts/assemble_ppt.py` or fallback image commands, make sure the shared runtime exists. If `~/.codex-ppt-skill/.venv/bin/python` is missing, or if importing script dependencies fails, create or refresh the environment:
+CLI/API 폴백 명령은 공유 런타임 환경을 사용한다. `scripts/assemble_ppt.py` 또는 폴백 이미지 명령을 실행하기 전에 `~/.codex-ppt-skill/.venv/bin/python`이 존재하고 스크립트 의존성을 import할 수 있는지 확인한다. 없거나 실패하면 다음으로 환경을 생성/갱신한다.
 
 ```bash
 python3 {skill_root}/scripts/codex_ppt_runtime.py bootstrap
 ```
 
-This is an internal setup step for the skill. Do not ask the user to run it unless dependency installation fails and user approval or troubleshooting is required.
+이는 스킬 내부 준비 단계다. 의존성 설치 실패로 사용자의 승인이나 문제 해결이 필요한 경우가 아니라면 사용자에게 직접 실행을 요구하지 않는다.
 
-The fallback CLI loads `~/.codex-ppt-skill/.env` automatically for `OPENAI_API_KEY`, `OPENAI_BASE_URL`, and `CODEX_PPT_IMAGE_MODEL`. Do not manually parse `.env`. For API key, base URL, model, and config troubleshooting, read `image-model-configuration.md` only after the fallback CLI reports missing or invalid configuration, when the user explicitly wants to change those settings, or when a real API call reports authentication, permission, base URL, or model availability failure.
+폴백 CLI는 `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `CODEX_PPT_IMAGE_MODEL`을 위해 `~/.codex-ppt-skill/.env`를 자동으로 읽는다. `.env`를 수동 파싱하지 않는다. 폴백 CLI가 실제 설정 오류를 반환했거나 사용자가 설정 변경을 요청했거나 실제 API 호출에서 인증/권한/기본 URL/모델 가용성 오류가 발생했을 때만 `image-model-configuration.md`를 읽는다.
 
-## Generate One Slide
+## 슬라이드 한 장 생성
 
-Basic generation command:
+기본 명령:
 
 ```bash
 ~/.codex-ppt-skill/.venv/bin/python {skill_root}/scripts/image_gen.py generate \
@@ -29,9 +29,9 @@ Basic generation command:
   --out {base_dir}/{deck_name}/origin_image/slide_01.png
 ```
 
-The fallback CLI defaults to `gpt-image-2.5-flare`. Select `--model gpt-image-2.5-sunburst` for Sunburst. It also accepts provider-prefixed names and older GPT Image models; verify provider support before using a model.
+폴백 CLI 기본 모델은 `gpt-image-2.5-flare`다. Sunburst를 쓰려면 `--model gpt-image-2.5-sunburst`를 지정한다. 공급자 접두사가 붙은 모델명과 이전 GPT Image 모델도 받을 수 있지만 사용 전에 공급자 지원 여부를 확인한다.
 
-When generating from saved `prompts/slide_XX.json` files, use the job's `prompt` field only when the job does not require input images:
+저장된 `prompts/slide_XX.json`에서 생성할 때는 작업에 입력 이미지가 필요하지 않은 경우에만 `prompt` 필드만 사용한다.
 
 ```bash
 python3 -c 'import json, pathlib; print(json.loads(pathlib.Path("{base_dir}/{deck_name}/prompts/slide_01.json").read_text())["prompt"])' | \
@@ -42,20 +42,20 @@ python3 -c 'import json, pathlib; print(json.loads(pathlib.Path("{base_dir}/{dec
   --out {base_dir}/{deck_name}/origin_image/slide_01.png
 ```
 
-Before using this text-only `generate` path, inspect the assigned `prompts/slide_XX.json`. If `input_images` is non-empty or `requires_context_images` is true, this command is not sufficient because it does not attach those images. Use a selected backend/path that can pass the required images, such as the built-in image tool with the images visible in context or a CLI/API edit/image-input path that supplies every required source image. If no such path is available, stop and ask the user whether to switch backend. Do not generate a text-only replacement for a strict input asset.
+이 텍스트 전용 경로를 쓰기 전에 해당 `prompts/slide_XX.json`을 확인한다. `input_images`가 비어 있지 않거나 `requires_context_images`가 `true`라면 위 명령만으로는 충분하지 않다. 내장 이미지 도구처럼 필요한 이미지가 컨텍스트에 보이거나 모든 원본 이미지를 전달할 수 있는 편집/이미지 입력 경로를 사용한다. 가능한 경로가 없으면 중단하고 백엔드 전환 여부를 사용자에게 확인한다. 필수 입력 자산을 무시한 텍스트 전용 대체물을 생성하지 않는다.
 
-## Capabilities And Sizes
+## 기능 및 크기
 
-The fallback CLI supports:
+폴백 CLI는 다음을 지원한다.
 
-- `generate`: create one or more images from a prompt.
-- `edit`: edit one or more existing images, optionally with a mask.
+- `generate`: 프롬프트에서 이미지 생성
+- `edit`: 기존 이미지 하나 이상을 선택적으로 마스크와 함께 편집
 
-The fallback CLI defaults to 2K 16:9 landscape output, `2560x1440`, with `medium` quality. GPT Image 2.5 also supports `xhigh` and `max`; older models retain their existing quality limits. For 4K landscape slides, use `--size 3840x2160 --quality high` only when the user asks for 4K, text-heavy slides need sharper output, or the default result is blurry. For portrait assets, use `--size 2160x3840` only if the user requests portrait output. For GPT Image 2.5, output above `2560x1440` pixels is experimental; inspect the actual size and visual quality.
+기본 출력은 2K 16:9 가로형 `2560x1440`, 품질 `medium`이다. GPT Image 2.5는 `xhigh`, `max`도 지원한다. 4K 가로 슬라이드는 사용자가 4K를 요청했거나 텍스트가 많은 슬라이드에서 더 선명한 결과가 필요하거나 기본 결과가 흐릴 때만 `--size 3840x2160 --quality high`를 사용한다. 세로형은 사용자가 요청한 경우에만 `--size 2160x3840`을 사용한다. GPT Image 2.5에서 `2560x1440` 초과 출력은 실험적일 수 있으므로 실제 크기와 품질을 검사한다.
 
-## Editing Slides
+## 슬라이드 편집
 
-If a slide is mostly correct but has a localized issue, use the selected backend's edit capability when available. In CLI/API fallback mode:
+슬라이드 대부분이 맞고 국소적인 문제만 있다면 선택한 백엔드의 편집 기능을 사용할 수 있을 때 사용한다. CLI/API 폴백에서는 다음을 사용한다.
 
 ```bash
 ~/.codex-ppt-skill/.venv/bin/python {skill_root}/scripts/image_gen.py edit \
@@ -64,21 +64,20 @@ If a slide is mostly correct but has a localized issue, use the selected backend
   --out {new_slide_path}
 ```
 
-Replace the final slide only after validating the edited output.
+편집 결과를 검증한 뒤에만 최종 슬라이드를 교체한다.
 
-## Transparent Backgrounds
+## 투명 배경
 
-Transparent-background requests:
+- GPT Image 2.5 Flare/Sunburst는 호환 API에서 `--background transparent --output-format png` 또는 `webp`를 지원한다. JPEG는 투명도를 보존하지 못한다.
+- 현재 AtlasCloud 어댑터는 `background`를 전달하지 않고 PNG/JPEG만 허용하므로 해당 어댑터에서 네이티브 투명 배경을 보장하지 않는다.
+- `gpt-image-2`는 네이티브 투명 배경을 지원하지 않지만 GPT Image 1/1.5는 지원한다. 합의 없이 선택 모델을 바꾸지 않는다.
+- 내장 모드에서는 도구가 네이티브 투명도를 지원하면 사용하고, 그렇지 않으면 필요할 때 단색 크로마키 배경과 `scripts/remove_chroma_key.py`를 사용한다.
 
-- GPT Image 2.5 Flare and Sunburst support `--background transparent --output-format png` (or `webp`) through compatible APIs. JPEG cannot preserve transparency. The current AtlasCloud adapter does not forward `background` and accepts only PNG/JPEG; do not promise native transparency through that adapter.
-- `gpt-image-2` does not support native transparent backgrounds; GPT Image 1 / 1.5 do. Preserve the selected model unless a switch has been agreed.
-- In built-in mode, use native transparency if the tool supports it; otherwise use a flat chroma-key background and `scripts/remove_chroma_key.py` when appropriate.
+## 조립 및 진단
 
-## Assembly And Doctor
+`assemble_ppt.py`는 `16:9`와 `4:3`을 지원한다. 사용자가 다르게 요청하지 않으면 `16:9`를 사용한다.
 
-`assemble_ppt.py` supports `16:9` and `4:3`. Use `16:9` unless the user requests otherwise.
-
-Run the API doctor only when troubleshooting fallback API access:
+폴백 API 접근 문제를 해결할 때만 다음 진단 명령을 실행한다.
 
 ```bash
 python3 {skill_root}/scripts/codex_ppt_runtime.py doctor --check-api

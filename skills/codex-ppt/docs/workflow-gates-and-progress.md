@@ -1,46 +1,46 @@
-# Workflow Gates And Progress
+# 워크플로 게이트 및 진행 상태
 
-Read this before creating downstream artifacts, advancing between phases, or reporting progress.
+후속 산출물을 만들거나 단계 사이를 이동하거나 진행 상황을 보고하기 전에 이 문서를 읽는다.
 
-## Mandatory Phase Gates
+## 필수 단계 게이트
 
-This workflow has explicit approval gates. Do not advance to a later phase until the previous phase has been approved by the user, unless the user explicitly asks to skip that confirmation.
+이 워크플로에는 명시적인 승인 게이트가 있다. 사용자가 확인을 생략하라고 명시하지 않는 한 이전 단계의 승인이 끝나기 전에는 다음 단계로 넘어가지 않는다.
 
-Phase order:
+단계 순서:
 
-1. Source reading and asset extraction
-2. Outline confirmation
-3. Visual style confirmation
-4. Image backend confirmation
-5. One sample slide approval
-6. Full slide generation
-7. QA, speaker notes finalization, and PPT assembly
+1. 원본 자료 읽기 및 자산 추출
+2. 개요 확인
+3. 시각 스타일 확인
+4. 이미지 백엔드 확인
+5. 샘플 슬라이드 1장 승인
+6. 전체 슬라이드 생성
+7. QA, 발표자 노트 확정, PPT 조립
 
-Hard rules:
+필수 규칙:
 
-- Before outline approval, do not create final `deck_spec.json`, `speech.md`, prompt job files, slide images, or `.pptx` files.
-- If you need an internal planning artifact before approval, name it with `.draft.` such as `deck_spec.draft.json` or `speech.draft.md`, and clearly report that it is not final.
-- Downstream artifacts (`deck_spec.json`, `prompts/`, `slide_jobs.json`, `speech.md`, final slide images, and `.pptx`) should be created only after the relevant gates have been approved.
-- If the deck uses required source images, stop at outline confirmation and ask the user to verify the slide-to-image mapping before style selection or image generation.
+- 개요 승인 전에는 최종 `deck_spec.json`, `speech.md`, 프롬프트 작업 파일, 슬라이드 이미지, `.pptx`를 만들지 않는다.
+- 승인 전에 내부 계획 파일이 필요하면 `deck_spec.draft.json`, `speech.draft.md`처럼 `.draft.`를 포함하고 최종본이 아님을 명확히 알린다.
+- `deck_spec.json`, `prompts/`, `slide_jobs.json`, `speech.md`, 최종 슬라이드 이미지, `.pptx` 같은 후속 산출물은 관련 게이트가 승인된 뒤에만 만든다.
+- 필수 원본 이미지를 사용하는 덱은 개요 확인 단계에서 멈추고 스타일 선택이나 이미지 생성 전에 슬라이드-이미지 매핑을 사용자에게 확인받는다.
 
-## Visible Progress Plan
+## 사용자에게 보이는 진행 계획
 
-For non-trivial decks, keep a user-visible checklist with one active step:
+단순하지 않은 덱에서는 활성 단계가 하나인 체크리스트를 유지한다.
 
-1. Prepare source, outline, style, and backend decisions.
-2. Generate and approve one sample slide.
-3. Prepare slide jobs and slide state.
-4. Dispatch slide subagents.
-5. Record generated slide results.
-6. QA, repair, notes, and PPT assembly.
+1. 원본, 개요, 스타일, 백엔드 결정을 준비한다.
+2. 샘플 슬라이드 한 장을 생성하고 승인받는다.
+3. 슬라이드 작업과 상태를 준비한다.
+4. 슬라이드 서브에이전트에 작업을 배정한다.
+5. 생성된 슬라이드 결과를 기록한다.
+6. QA, 수정, 노트, PPT 조립을 수행한다.
 
-Completion evidence:
+완료 근거:
 
-- `Prepare source, outline, style, and backend decisions`: `outline.md` is approved and image backend is confirmed.
-- `Generate and approve one sample slide`: one final `origin_image/slide_XX.png` is approved as the style reference.
-- `Prepare slide jobs and slide state`: `prompts/slide_XX.json`, `slide_jobs.json`, and `slide_run_state.json` exist.
-- `Dispatch slide subagents`: `slide_job_status.py` shows dispatchable slides and each spawned worker is recorded by `record_slide_dispatch.py`.
-- `Record generated slide results`: each worker output is recorded by `record_slide_result.py`, which copies the selected image into `origin_image/slide_XX.png` and records backend provenance.
-- `QA, repair, notes, and PPT assembly`: every expected final image exists, QA is complete, `speech.md` is final, and `{deck_name}.pptx` exists.
+- `원본, 개요, 스타일, 백엔드 결정 준비`: `outline.md`가 승인되고 이미지 백엔드가 확정됨.
+- `샘플 슬라이드 생성 및 승인`: 최종 `origin_image/slide_XX.png` 한 장이 스타일 기준으로 승인됨.
+- `슬라이드 작업과 상태 준비`: `prompts/slide_XX.json`, `slide_jobs.json`, `slide_run_state.json`이 존재함.
+- `슬라이드 서브에이전트 배정`: `slide_job_status.py`가 배정 가능한 슬라이드를 보여 주고 각 작업자가 `record_slide_dispatch.py`에 기록됨.
+- `생성 결과 기록`: 각 작업자 출력이 `record_slide_result.py`로 기록되고 선택한 이미지가 `origin_image/slide_XX.png`로 복사되며 백엔드 출처가 남음.
+- `QA, 수정, 노트, PPT 조립`: 예상 최종 이미지가 모두 존재하고 QA가 끝났으며 `speech.md`가 최종 상태이고 `{deck_name}.pptx`가 존재함.
 
-Do not mark a step complete just because the chat says it is complete; use real files or script-recorded state.
+채팅에서 완료라고 말한 것만으로 단계를 완료 처리하지 않는다. 실제 파일 또는 스크립트에 기록된 상태를 근거로 한다.

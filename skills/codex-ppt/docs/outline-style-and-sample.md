@@ -1,137 +1,105 @@
-# Outline, Style, And Sample
+# 개요, 스타일, 샘플
 
-Read this before writing or updating `outline.md`, offering visual styles, using files from `references/`, or generating/approving the sample slide.
+`outline.md`를 작성/수정하거나 시각 스타일을 제안하거나 `references/` 파일을 사용하거나 샘플 슬라이드를 생성/승인하기 전에 읽는다.
 
-If the user asks to save a finished deck style or a user-supplied image/PDF/PPT/PPTX style for future reuse, read `style-library.md`.
+완성된 덱 스타일 또는 사용자가 제공한 이미지/PDF/PPT/PPTX 스타일을 재사용 가능하게 저장해 달라는 요청이 있으면 `style-library.md`를 읽는다.
 
-## Plan The Deck Outline
+## 덱 개요 설계
 
-Create a concise `outline.md` draft before generating images. For each slide, define:
+이미지를 생성하기 전에 간결한 `outline.md` 초안을 만든다. 각 슬라이드에는 다음을 정의한다.
 
-- Slide number
-- Slide title
-- 3-5 key points
-- Optional visual idea
-- Layout role and intent, such as cover, agenda, section divider, concept explanation, process, comparison, timeline, data evidence, architecture, case study, summary, or Q&A
-- Required source images, if any, including the image path or attachment name, its role on the slide, and whether it is a strict input asset or only a style/layout reference
+- 슬라이드 번호
+- 슬라이드 제목
+- 핵심 포인트 3~5개
+- 선택적 시각 아이디어
+- 표지, 목차, 섹션 구분, 개념 설명, 프로세스, 비교, 타임라인, 데이터 근거, 아키텍처, 사례, 요약, Q&A 등의 레이아웃 역할과 의도
+- 필요한 원본 이미지가 있다면 이미지 경로/첨부명, 슬라이드 내 역할, 필수 입력 자산인지 스타일/레이아웃 참고용인지 여부
 
-Save the draft to `{base_dir}/{deck_name}/outline.md` once the project directory is known. If the output directory is not known yet, show the outline in chat first and write it to `outline.md` immediately after creating the project directory.
+프로젝트 디렉터리를 알게 되면 `{base_dir}/{deck_name}/outline.md`에 저장한다. 아직 출력 디렉터리가 정해지지 않았다면 먼저 채팅에서 개요를 보여 주고 프로젝트 디렉터리를 만든 직후 `outline.md`로 저장한다.
 
-Show the outline to the user for confirmation and wait for approval before moving to visual style selection or image generation, unless the user explicitly asked you to skip confirmation. If any slide lists required source images, explicitly ask the user to verify that each image is assigned to the correct slide and role before generation. If the user requests changes, update `outline.md` and ask for confirmation again.
+사용자가 확인할 수 있도록 개요를 보여 주고, 사용자가 확인 생략을 명시하지 않는 한 스타일 선택이나 이미지 생성으로 넘어가기 전에 승인을 기다린다. 필수 원본 이미지가 있는 슬라이드는 생성 전에 이미지가 올바른 슬라이드와 역할에 배정되었는지 명시적으로 확인받는다. 변경 요청이 있으면 `outline.md`를 수정하고 다시 확인받는다.
 
-Stop after writing the outline draft. At this point, report the `outline.md` path, slide count, required source images and their slide mapping, and that no slide images or PPTX have been generated yet. Do not proceed to `deck_spec.json`, `speech.md`, prompt preparation, style selection, backend selection, or sample generation until the user approves the outline.
+개요 초안을 작성한 뒤에는 중단한다. 이 시점에는 `outline.md` 경로, 슬라이드 수, 필수 원본 이미지와 슬라이드 매핑, 아직 슬라이드 이미지나 PPTX를 생성하지 않았다는 사실을 보고한다. 개요 승인 전에는 `deck_spec.json`, `speech.md`, 프롬프트 준비, 스타일 선택, 백엔드 선택, 샘플 생성을 진행하지 않는다.
 
-If the user approved a sample slide, record that approved `slide_XX.png` path as the deck-level style reference. Later slide prompts and subagent handoffs should include it as a style-only reference so each page keeps the same palette, typography mood, density, texture, and visual identity without copying the sample's exact layout.
+샘플 슬라이드가 승인되면 승인된 `slide_XX.png` 경로를 덱 수준 스타일 기준으로 기록한다. 이후 프롬프트와 서브에이전트 인계에는 이 파일을 스타일 전용 참고로 포함해 팔레트, 타이포그래피 분위기, 밀도, 질감, 시각 정체성은 유지하되 레이아웃 자체를 복제하지 않는다.
 
-Recommended structure:
-
-```text
-Slide 1: Cover
-Slide 2: Context / problem
-Slide 3-7: Main argument or sections
-Slide 8: Summary / recommendation / closing
-```
-
-For slides that use source images, add lines like:
-
-```markdown
-Slide 5: Experiment Results
-- Key points: ...
-- Required images:
-  - Main evidence figure; strict input asset; preserve data, axes, labels, legends, colors, and values
-
-    ![Result 01](assets/figures/result_01.png)
-
-  - Supporting model architecture; strict input asset; preserve labels and arrows
-
-    ![Model Architecture](assets/figures/model_architecture.png)
-```
-
-Use Markdown image syntax inside the `Required images` list whenever the asset is local and renderable in the outline. This lets the user visually verify the exact asset mapping during outline review. Keep the descriptive text next to each image so `prepare_slide_prompts.py` can convert the same asset into structured prompt input later.
-
-## Confirm A Unified Visual Style
-
-Before generating slide images, discuss the visual style with the user unless the user has already provided a clear style direction or reference material.
-
-If the user has already specified a style, provided a style image, or provided a PDF/PPT/PPTX to use as style reference, do not force a 2-3 option style selection. Extract the usable style rules, briefly restate them, then proceed to backend confirmation and sample generation.
-
-For PDF/PPT/PPTX style references, do not infer the visual system from document structure, outline text, XML, file metadata, or slide object hierarchy alone. First render or export representative pages/slides into real page images, inspect those rendered images, and derive the style from what is actually visible on the pages. If the file has multiple visual sections, inspect enough representative pages to capture the shared style and any section-specific variations.
-
-When extracting style from reference material, separate content reuse from style reuse. Unless the user explicitly asks to reuse the source content, treat the provided image/PDF/PPT/PPTX as a style reference only.
-
-If the user has not provided a clear style, prefer a multiple-choice question: offer 2-3 concrete style directions and mark one as your recommendation. Each style option should briefly specify:
-
-- Color palette
-- Layout system
-- Typography direction
-- Illustration or image treatment
-- Decorative elements
-- Density and whitespace rules
-
-After the user chooses a style, create one final style direction and keep the visual identity consistent across all slide prompts. Keep color palette, typography, texture, icon/illustration language, and overall mood stable. Do not reuse the same layout on every page.
-
-Reusable style references come from two locations:
-
-- Built-in styles: the skill's `references/` directory, listed below. They ship with the skill and update with it.
-- User custom styles: `${CODEX_PPT_HOME:-~/.codex-ppt-skill}/references/*.md`. They live outside the skill install so they survive skill updates and reinstalls.
-
-Before offering or using reusable styles, list the user custom style directory (if it exists) and merge its `*.md` files with the built-in list below. User custom styles are discovered by scanning that directory; they are never registered in this document. If a user custom style has the same filename as a built-in style, the user custom file takes priority and replaces the built-in one.
-
-Use style references as inspiration, not as rigid templates. Adapt the style to the topic and audience.
-
-Important: a deck should have one coherent visual identity, not one repeated composition. Treat each reference as a style system: stable palette, typography, icon language, texture, and visual mood; variable page layout chosen from the slide's content role. `layout_blueprints` are candidate starting points only. Do not apply the same blueprint to every slide.
-
-Available built-in references:
-
-- `references/清爽专业风.md`
-- `references/创意杂志风.md`
-- `references/电子墨水杂志风.md`
-- `references/数据仪表盘风.md`
-- `references/科研答辩风.md`
-- `references/复古扁平插画风.md`
-- `references/手绘技术解释风.md`
-- `references/手绘白板风.md`
-- `references/温暖手工风.md`
-- `references/麦肯锡风格.md`
-- `references/党政红风格.md`
-- `references/教学课件风.md`
-
-This list only tracks built-in styles shipped with the skill. Do not add user custom styles here; they are saved to `${CODEX_PPT_HOME:-~/.codex-ppt-skill}/references/` via `docs/style-library.md` and discovered by directory scan, so they need no registration.
-
-Example style confirmation:
+권장 구조 예시:
 
 ```text
-我建议用 A，因为它最适合这份内容的受众和表达目标。
-
-A. 清爽专业风（推荐）：浅色背景、蓝绿强调色、结构清晰，适合汇报、答辩和技术分享。
-B. 创意杂志风：大标题、强图片、留白更大胆，适合分享和传播。
-C. 数据仪表盘风：指标卡、图表感布局，适合数据密集型报告。
-
-你选哪个？也可以指定要调整的配色、布局或插画方向，或者上传一张喜欢的 PPT 风格图片让我参考。
+Slide 1: 표지
+Slide 2: 배경 / 문제
+Slide 3-7: 핵심 주장 또는 섹션
+Slide 8: 요약 / 권고 / 마무리
 ```
 
-## Generate One Sample Slide For Approval
+원본 이미지를 쓰는 슬라이드는 `Required images` 목록 안에 Markdown 이미지 문법을 사용해 사용자가 실제 매핑을 눈으로 검증할 수 있게 한다. 설명 텍스트를 이미지와 함께 유지해 `prepare_slide_prompts.py`가 동일 자산을 구조화된 프롬프트 입력으로 변환할 수 있게 한다.
 
-After the outline, style, and image backend are confirmed, generate exactly one sample slide image before full production.
+## 통일된 시각 스타일 확인
 
-Sample slide requirements:
+사용자가 이미 명확한 스타일 방향이나 참고 자료를 제공하지 않았다면 슬라이드 이미지 생성 전에 시각 스타일을 논의한다.
 
-- Use the confirmed style description.
-- Prefer a representative content slide over the cover when possible.
-- Demonstrate the intended deck rhythm: the sample should show how the chosen style adapts to a real content page, not just a generic fixed template.
-- Save it directly as the intended final slide filename, such as `{base_dir}/{deck_name}/origin_image/slide_08.png`. In CLI/API fallback mode, use `scripts/image_gen.py generate --out` for that exact path.
-- Show the sample image to the user.
-- Ask the user to confirm the visual style, typography, layout density, and Chinese text quality.
+사용자가 스타일을 지정했거나 스타일 이미지/PDF/PPT/PPTX를 제공했다면 2~3개 선택지를 억지로 제시하지 않는다. 사용할 수 있는 스타일 규칙을 추출해 짧게 재확인한 뒤 백엔드 확인과 샘플 생성으로 진행한다.
 
-Do not generate the full deck until the user approves the sample slide. If the user requests changes, revise the style description and regenerate that same `slide_XX.png` file first. Once approved, keep that file as the final slide for its page. Do not create `sample_slide.png` in `origin_image/`, because the assembly step is designed around final `slide_XX` filenames.
+PDF/PPT/PPTX 스타일 참고는 문서 구조, XML, 메타데이터, 객체 계층만 보고 추정하지 않는다. 대표 페이지/슬라이드를 실제 이미지로 렌더링해 눈에 보이는 결과를 검사한 뒤 스타일을 추출한다. 여러 시각 섹션이 있다면 공통 스타일과 섹션별 변형을 파악할 수 있을 만큼 대표 페이지를 검사한다.
 
-After the sample slide is approved, record the sample generation method in `deck_spec.json` before preparing full-deck jobs. This is the contract the parent passes to subagents so they use the same image-generation path as the sample, not a cheaper local rendering path. Include at least:
+참고 자료에서 스타일을 추출할 때 콘텐츠 재사용과 스타일 재사용을 분리한다. 사용자가 원본 콘텐츠도 재사용해 달라고 명시하지 않았다면 스타일 참고로만 사용한다.
 
-- `backend_used`: the confirmed backend label, such as `built-in image tool` or `scripts/image_gen.py`.
-- `tool_name`: the actual tool or command used, such as `image_gen`, `image_generate`, or `scripts/image_gen.py`.
-- `mode`: `generate` or `edit`.
-- `prompt_source`: where the approved sample prompt came from.
-- `size`, `quality`, and model/config details when the backend exposes them.
-- `approved_sample_path`: the approved `origin_image/slide_XX.png` path.
-- `input_context_preparation`: how local source/style images were made available, such as `view_image` for built-in mode.
-- `handoff_rule`: subagents must use the same backend/tool/mode and return a blocker if that path is unavailable.
+명확한 스타일이 없다면 2~3개의 구체적인 방향을 객관식처럼 제안하고 하나를 추천한다. 각 옵션에는 다음을 짧게 포함한다.
+
+- 색상 팔레트
+- 레이아웃 시스템
+- 타이포그래피 방향
+- 일러스트/이미지 처리 방식
+- 장식 요소
+- 밀도와 여백 규칙
+
+사용자가 스타일을 고르면 하나의 최종 방향으로 통합하고 모든 슬라이드 프롬프트에서 시각 정체성을 일관되게 유지한다. 팔레트, 타이포그래피, 질감, 아이콘/일러스트 언어, 전체 분위기는 유지하되 모든 페이지에 같은 레이아웃을 반복하지 않는다.
+
+재사용 스타일 위치:
+
+- 내장 스타일: 스킬의 `references/` 디렉터리
+- 사용자 지정 스타일: `${CODEX_PPT_HOME:-~/.codex-ppt-skill}/references/*.md`
+
+스타일을 제안하거나 사용하기 전에 사용자 지정 스타일 디렉터리가 있으면 먼저 목록을 확인하고 내장 스타일과 합친다. 같은 파일명이 있으면 사용자 지정 스타일이 우선한다.
+
+스타일 레퍼런스는 고정 템플릿이 아니라 영감과 규칙 체계로 사용한다. `layout_blueprints`는 후보 시작점일 뿐이며 같은 구성을 모든 슬라이드에 적용하지 않는다.
+
+내장 스타일 파일은 `references/*.md`를 사용한다. 사용자 지정 스타일은 이 문서에 등록하지 않고 디렉터리 스캔으로 발견한다.
+
+스타일 확인 문구 예시:
+
+```text
+이 내용의 대상과 목적에는 A가 가장 적합해 보입니다.
+
+A. 깔끔한 전문형(추천): 밝은 배경, 블루/그린 포인트, 명확한 구조. 보고·발표·기술 공유에 적합.
+B. 크리에이티브 매거진형: 큰 제목, 강한 이미지, 과감한 여백. 공유·홍보형 발표에 적합.
+C. 데이터 대시보드형: 지표 카드와 차트 중심. 데이터 밀도가 높은 보고서에 적합.
+
+어느 방향으로 할까요? 색상, 레이아웃, 일러스트 방향을 직접 지정하거나 참고 이미지를 제공해도 됩니다.
+```
+
+## 샘플 슬라이드 1장 생성
+
+개요, 스타일, 이미지 백엔드가 모두 확정된 뒤 전체 생성 전에 정확히 한 장의 샘플 슬라이드를 만든다.
+
+샘플 요구사항:
+
+- 확정된 스타일 설명을 사용한다.
+- 가능하면 표지보다 대표성이 있는 콘텐츠 슬라이드를 선택한다.
+- 고정 템플릿이 아니라 실제 콘텐츠 페이지에서 선택한 스타일이 어떻게 적용되는지 보여 준다.
+- `{base_dir}/{deck_name}/origin_image/slide_08.png`처럼 최종 사용 예정 파일명으로 바로 저장한다. CLI/API 폴백에서는 정확한 경로를 `scripts/image_gen.py generate --out`에 전달한다.
+- 샘플 이미지를 사용자에게 보여 준다.
+- 시각 스타일, 타이포그래피, 레이아웃 밀도, 한글 텍스트 품질을 확인받는다.
+
+사용자가 승인하기 전에는 전체 덱을 생성하지 않는다. 수정 요청이 있으면 스타일 설명을 조정하고 같은 `slide_XX.png`를 다시 생성한다. 승인 후에는 해당 파일을 그 페이지의 최종 슬라이드로 유지한다. `origin_image/` 안에 `sample_slide.png`를 별도로 만들지 않는다.
+
+샘플 승인 후 전체 작업을 준비하기 전에 `deck_spec.json`에 샘플 생성 방식을 기록한다. 최소 필드:
+
+- `backend_used`: 확정된 백엔드 이름
+- `tool_name`: 실제 사용 도구/명령 (`image_gen`, `image_generate`, `scripts/image_gen.py` 등)
+- `mode`: `generate` 또는 `edit`
+- `prompt_source`: 승인 샘플 프롬프트 출처
+- 백엔드가 노출하는 경우 `size`, `quality`, 모델/설정 정보
+- `approved_sample_path`: 승인된 `origin_image/slide_XX.png` 경로
+- `input_context_preparation`: 로컬 원본/스타일 이미지를 도구에 제공한 방식
+- `handoff_rule`: 서브에이전트는 같은 백엔드/도구/모드를 사용하고 사용할 수 없으면 블로커를 반환해야 함
